@@ -596,7 +596,7 @@
 
             //check if query was successful if not throw exception
             if ((string) $responseobj->TYPE !== 'success') {
-                throw new \Exception('Adding Message Failed with message: ' . $responseobj->TYPE);
+                throw new \Exception('Adding Message failed with message: ' . $responseobj->DATA);
             }
 
             //create blank array to bind items to
@@ -870,7 +870,7 @@
 
             //check if response was successful if not throw exception
             if ((string) $responseobj->TYPE !== 'success') {
-                throw new \Exception('Schedualing of message failed with message: ' . $responseobj->TYPE);
+                throw new \Exception('Schedualing of message failed with message: ' . $responseobj->DATA);
             }
 
             //create blank array to bind items to

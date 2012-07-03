@@ -15,6 +15,7 @@
         private $siteid;
         private $apipassword;
 
+
         public function __construct($siteid, $apipassword = NULL) {
             //set site id
             $this->siteid = $siteid;
@@ -36,12 +37,13 @@
          * @see Block 2.1
          * @param string $name
          * @param string $listapipass
-         * @param array $attributes
+         * @param array  $attributes
+         * @throws \Exception
          * @return array
          */
-        public function listAdd($name, $listapipass = NULL, array $attributes = NULL) {
+        public function listAdd($name, array $attributes = array(), $listapipass = NULL) {
 
-            //if api pass is set in constructor assume lyris global apipass is enabled and use for all requests
+            //if api pass is set in constructor assume lyris global api pass is enabled and use for all requests
             if (empty($this->apipassword)) {
                 $apipass = $listapipass;
             } else {
@@ -72,12 +74,18 @@
             $response = $this->submit($querydata);
             //convert xml to array
             $responseobj = new \SimpleXMLElement($response);
+
+            //check for errors
+            if ((string) $responseobj->TYPE !== 'success') {
+                throw new \Exception('Adding of list failed with message: ' . (string) $responseobj->DATA);
+            }
+
             //create blank array to bind items to
             $returnarray = array();
             //clean up result and return array
-            $returnarray['status'] = (string)$responseobj->TYPE;
+            $returnarray['status'] = (string) $responseobj->TYPE;
             foreach ($responseobj->DATA as $value) {
-                $returnarray[(string)$value['type']] = (string)$value;
+                $returnarray[(string) $value['type']] = (string) $value;
             }
 
             return $returnarray;
@@ -87,7 +95,8 @@
          * Delete Mailing List
          * @see Block 2.2
          * @param string $mlid
-         * @param $listapipass
+         * @param        $listapipass
+         * @throws \Exception
          * @return array
          */
         public function listDelete($mlid, $listapipass = NULL) {
@@ -112,11 +121,17 @@
             $response = $this->submit($querydata);
             //convert xml to array
             $responseobj = new \SimpleXMLElement($response);
+
+            //check for errors
+            if ((string) $responseobj->TYPE !== 'success') {
+                throw new \Exception('Removing of list failed with message: ' . (string) $responseobj->DATA);
+            }
+
             //create blank array to bind items to
             $returnarray = array();
             //clean up result and return array
-            $returnarray['status'] = (string)$responseobj->TYPE;
-            $returnarray['message'] = (string)$responseobj->DATA;
+            $returnarray['status'] = (string) $responseobj->TYPE;
+            $returnarray['message'] = (string) $responseobj->DATA;
 
             return $returnarray;
         }
@@ -125,8 +140,8 @@
          * Query for all lists and relevent data
          * @see Block 2.3
          * @param string $listapipass
+         * @throws \Exception
          * @return array
-         *
          */
         public function listQuery($listapipass = NULL) {
 
@@ -149,21 +164,27 @@
             $response = $this->submit($querydata);
             //create new SimpleXMLElement Instance
             $responseobj = new \SimpleXMLElement($response);
+
+            //check for errors
+            if ((string) $responseobj->TYPE !== 'success') {
+                throw new \Exception('List Query failed with message: ' . (string) $responseobj->DATA);
+            }
+
             //create blank array to bind items to
             $returnarray = array();
             //clean up result and return array
-            $returnarray['status'] = (string)$responseobj->TYPE;
+            $returnarray['status'] = (string) $responseobj->TYPE;
             $i = 0;
             foreach ($responseobj->RECORD as $value) {
 
                 $returnarray[$i] = array();
 
                 //add list id as array value
-                $returnarray[$i]['mlid'] = (string)$value->DATA['id'];
+                $returnarray[$i]['mlid'] = (string) $value->DATA['id'];
 
                 foreach ($value->DATA as $k => $v) {
 
-                    $returnarray[$i][(string)$v['type']] = (string)$v;
+                    $returnarray[$i][(string) $v['type']] = (string) $v;
 
                 }
                 $i++;
@@ -175,11 +196,12 @@
         /**
          * Edit Mailing List
          * @see Block 2.4
+         * @param string $mlid
          * @param string $name
          * @param string $from_name
          * @param string $from_email
-         * @param string $mlid
          * @param string $listapipass
+         * @throws \Exception
          * @return array
          */
         public function listEdit($mlid, $name, $from_name, $from_email, $listapipass = NULL) {
@@ -207,11 +229,17 @@
             $response = $this->submit($querydata);
             //convert xml to array
             $responseobj = new \SimpleXMLElement($response);
+
+            //check for errors
+            if ((string) $responseobj->TYPE !== 'success') {
+                throw new \Exception('Editing of list failed with message: ' . (string) $responseobj->DATA);
+            }
+
             //create blank array to bind items to
             $returnarray = array();
             //clean up result and return array
-            $returnarray['status'] = (string)$responseobj->TYPE;
-            $returnarray['message'] = (string)$responseobj->DATA;
+            $returnarray['status'] = (string) $responseobj->TYPE;
+            $returnarray['message'] = (string) $responseobj->DATA;
 
             return $returnarray;
         }
@@ -224,11 +252,12 @@
         /**
          * Add member to list
          * @see Block 4.1
-         * @param numeric $mlid
-         * @param string $email
-         * @param array $attributes
-         * @param array $demographics
-         * @param string $listapipass
+         * @param int     $mlid
+         * @param string  $email
+         * @param array   $attributes
+         * @param array   $demographics
+         * @param string  $listapipass
+         * @throws \Exception
          * @return array
          */
         public function memberAdd($mlid, $email, array $attributes, array $demographics = NULL, $listapipass = NULL) {
@@ -269,11 +298,15 @@
             $response = $this->submit($querydata);
             //convert xml to array
             $responseobj = new \SimpleXMLElement($response);
+            //check for success
+            if ((string) $responseobj->TYPE !== 'success') {
+                throw new \Exception('Adding Member failed with message: ' . (string) $responseobj->DATA);
+            }
             //create blank array to bind items to
             $returnarray = array();
             //clean up result and return array
-            $returnarray['status'] = (string)$responseobj->TYPE;
-            $returnarray['memberid'] = (string)$responseobj->DATA;
+            $returnarray['status'] = (string) $responseobj->TYPE;
+            $returnarray['memberid'] = (string) $responseobj->DATA;
 
             return $returnarray;
         }
@@ -281,11 +314,11 @@
         /**
          * Download Members of Mailing list
          * @see Block 4.2
-         * @param type $mlid
-         * @param type $email
-         * @param type $type
-         * @param null $listapipass
+         * @param type   $mlid
+         * @param type   $email
+         * @param type   $type
          * @param string $listapipass
+         * @throws \Exception
          * @return array
          */
         public function memberDownload($mlid, $email, $type, $listapipass = NULL) {
@@ -312,10 +345,16 @@
             $response = $this->submit($querydata);
             //convert xml to array
             $responseobj = new \SimpleXMLElement($response);
+
+            //check for errors
+            if ((string) $responseobj->TYPE !== 'success') {
+                throw new \Exception('Member download failed with message: ' . (string) $responseobj->DATA);
+            }
+
             //create blank array to bind items to
             $returnarray = array();
             //clean up result and return array
-            $returnarray['status'] = (string)$responseobj->TYPE;
+            $returnarray['status'] = (string) $responseobj->TYPE;
 
             return $returnarray;
         }
@@ -324,8 +363,9 @@
          * Query Members
          * @see Block 4.3
          * @param numeric $mlid
-         * @param string $email
-         * @param string $listapipass
+         * @param string  $email
+         * @param string  $listapipass
+         * @throws \Exception
          * @return array
          */
         public function memberQuery($mlid, $email, $listapipass = NULL) {
@@ -351,17 +391,23 @@
             $response = $this->submit($querydata);
             //convert xml to array
             $responseobj = new \SimpleXMLElement($response);
+
+            //check for errors
+            if ((string) $responseobj->TYPE !== 'success') {
+                throw new \Exception('Member Query failed with message: ' . (string) $responseobj->DATA);
+            }
+
             //create blank array to bind items to
             $returnarray = array();
             //clean up result and return array
-            $returnarray['status'] = (string)$responseobj->TYPE;
+            $returnarray['status'] = (string) $responseobj->TYPE;
 
             if ($returnarray['status'] == 'error') {
-                $returnarray['message'] = (string)$responseobj->DATA;
+                $returnarray['message'] = (string) $responseobj->DATA;
             }
 
             foreach ($responseobj->RECORD->DATA as $value) {
-                $returnarray[(string)$value['id']] = (string)$value;
+                $returnarray[(string) $value['id']] = (string) $value;
             }
 
             return $returnarray;
@@ -375,9 +421,10 @@
         /**
          * Query list for member data
          * @see Block 4.5
-         * @param $mlid
-         * @param $type
+         * @param      $mlid
+         * @param      $type
          * @param null $listapipass
+         * @throws \Exception
          * @return array
          */
         public function memberQueryList($mlid, $type, $listapipass = NULL) {
@@ -403,20 +450,26 @@
             $response = $this->submit($querydata);
             //convert xml to array
             $responseobj = new \SimpleXMLElement($response);
+
+            //check for errors
+            if ((string) $responseobj->TYPE !== 'success') {
+                throw new \Exception('Query member list failed with message: ' . (string) $responseobj->DATA);
+            }
+
             //create blank array to bind items to
             $returnarray = array();
             //clean up result and return array
-            $returnarray['status'] = (string)$responseobj->TYPE;
+            $returnarray['status'] = (string) $responseobj->TYPE;
 
             if ($returnarray['status'] == 'error') {
-                $returnarray['message'] = (string)$responseobj->DATA;
+                $returnarray['message'] = (string) $responseobj->DATA;
             }
 
             foreach ($responseobj->RECORD->DATA as $value) {
-                if ((string)$value['type'] == 'email') {
-                    $returnarray[(string)$value['type']] = (string)$value;
+                if ((string) $value['type'] == 'email') {
+                    $returnarray[(string) $value['type']] = (string) $value;
                 } else {
-                    $returnarray[(string)$value['id']] = (string)$value;
+                    $returnarray[(string) $value['id']] = (string) $value;
                 }
             }
 
@@ -429,9 +482,10 @@
          * @see Block 4.6
          * @param string $mlid
          * @param string $email
-         * @param array $attributes
-         * @param array $demographics
-         * @param $listapipass
+         * @param array  $attributes
+         * @param array  $demographics
+         * @param        $listapipass
+         * @throws \Exception
          * @return array
          */
         public function memberEdit($mlid, $email, array $attributes, array $demographics = NULL, $listapipass = NULL) {
@@ -472,11 +526,17 @@
             $response = $this->submit($querydata);
             //convert xml to array
             $responseobj = new \SimpleXMLElement($response);
+
+            //check for errors
+            if ((string) $responseobj->TYPE !== 'success') {
+                throw new \Exception('Editing of member failed with message: ' . (string) $responseobj->DATA);
+            }
+
             //create blank array to bind items to
             $returnarray = array();
             //clean up result and return array
-            $returnarray['status'] = (string)$responseobj->TYPE;
-            $returnarray['memberid'] = (string)$responseobj->DATA;
+            $returnarray['status'] = (string) $responseobj->TYPE;
+            $returnarray['memberid'] = (string) $responseobj->DATA;
 
             return $returnarray;
         }
@@ -489,14 +549,15 @@
         /**
          * Add Message
          * @see Block 5.1
-         * @param numeric $mlid
-         * @param string $fromEmail
-         * @param string $fromName
-         * @param string $subject
-         * @param string $messageFormat
-         * @param string $messageText
-         * @param html $messageHTML
-         * @param $listapipass
+         * @param string   $mlid
+         * @param string   $fromEmail
+         * @param string   $fromName
+         * @param string   $subject
+         * @param string   $messageFormat
+         * @param string   $messageText
+         * @param string   $messageHTML
+         * @param          $listapipass
+         * @throws \Exception
          * @return array
          */
         public function messageAdd($mlid, $fromEmail, $fromName, $subject, $messageFormat, $messageText, $messageHTML, $listapipass = NULL) {
@@ -532,11 +593,17 @@
             $response = $this->submit($querydata);
             //convert xml to array
             $responseobj = new \SimpleXMLElement($response);
+
+            //check if query was successful if not throw exception
+            if ((string) $responseobj->TYPE !== 'success') {
+                throw new \Exception('Adding Message Failed with message: ' . $responseobj->TYPE);
+            }
+
             //create blank array to bind items to
             $returnarray = array();
             //clean up result and return array
-            $returnarray['status'] = (string)$responseobj->TYPE;
-            $returnarray['messageid'] = (string)$responseobj->DATA;
+            $returnarray['status'] = (string) $responseobj->TYPE;
+            $returnarray['messageid'] = (string) $responseobj->DATA;
 
             return $returnarray;
         }
@@ -544,9 +611,10 @@
         /**
          * Copy message
          * @see Block 5.2
-         * @param $mlid
-         * @param $mid
+         * @param      $mlid
+         * @param      $mid
          * @param null $listapipass
+         * @throws \Exception
          * @return array
          */
         public function messageCopy($mlid, $mid, $listapipass = NULL) {
@@ -572,11 +640,17 @@
             $response = $this->submit($querydata);
             //convert xml to array
             $responseobj = new \SimpleXMLElement($response);
+
+            //check for errors
+            if ((string) $responseobj->TYPE !== 'success') {
+                throw new \Exception('Coping of message failed with message: ' . (string) $responseobj->DATA);
+            }
+
             //create blank array to bind items to
             $returnarray = array();
             //clean up result and return array
-            $returnarray['status'] = (string)$responseobj->TYPE;
-            $returnarray['messageid'] = (string)$responseobj->DATA;
+            $returnarray['status'] = (string) $responseobj->TYPE;
+            $returnarray['messageid'] = (string) $responseobj->DATA;
 
             return $returnarray;
         }
@@ -584,10 +658,11 @@
         /**
          * Proof a created message
          * @see Block 5.3
-         * @param $mlid
-         * @param $mid
-         * @param $text
+         * @param      $mlid
+         * @param      $mid
+         * @param      $text
          * @param null $listapipass
+         * @throws \Exception
          * @return array
          */
         public function messageProof($mlid, $mid, $text, $listapipass = NULL) {
@@ -614,13 +689,19 @@
             $response = $this->submit($querydata);
             //convert xml to array
             $responseobj = new \SimpleXMLElement($response);
+
+            //check for errors
+            if ((string) $responseobj->TYPE !== 'success') {
+                throw new \Exception('Message proofing failed with message: ' . (string) $responseobj->DATA);
+            }
+
             //create blank array to bind items to
             $returnarray = array();
             //clean up result and return array
-            $returnarray['status'] = (string)$responseobj->TYPE;
-            $returnarray['message'] = (string)$responseobj->DATA;
+            $returnarray['status'] = (string) $responseobj->TYPE;
+            $returnarray['message'] = (string) $responseobj->DATA;
             foreach ($responseobj->EMAIL as $email) {
-                $returnarray['email'][] = (string)$email;
+                $returnarray['email'][] = (string) $email;
             }
 
             return $returnarray;
@@ -633,10 +714,11 @@
         /**
          * Get all messages in a list
          * @see Block 5.6
-         * @param $mlid
+         * @param      $mlid
          * @param null $startdate
          * @param null $enddate
          * @param null $listapipass
+         * @throws \Exception
          * @return array
          */
         public function messageQueryListData($mlid, $startdate = NULL, $enddate = NULL, $listapipass = NULL) {
@@ -661,11 +743,17 @@
             $response = $this->submit($querydata);
             //convert xml to array
             $responseobj = new \SimpleXMLElement($response);
+
+            //check for errors
+            if ((string) $responseobj->TYPE !== 'success') {
+                throw new \Exception('Message list query failed with message: ' . (string) $responseobj->DATA);
+            }
+
             //create blank array to bind items to
             $returnarray = array();
             //clean up result and return array
-            $returnarray['status'] = (string)$responseobj->TYPE;
-            $returnarray['messageid'] = (string)$responseobj->DATA;
+            $returnarray['status'] = (string) $responseobj->TYPE;
+            $returnarray['messageid'] = (string) $responseobj->DATA;
 
             return $returnarray;
         }
@@ -673,11 +761,12 @@
         /**
          * Query Messages Stats
          * @see Block 5.6
-         * @param $mid
-         * @param $mlid
-         * @param $action
+         * @param      $mid
+         * @param      $mlid
+         * @param      $action
          * @param null $params
          * @param null $listapipass
+         * @throws \Exception
          * @return XML
          */
         public function messageQueryStats($mid, $mlid, $action, $params = NULL, $listapipass = NULL) {
@@ -709,11 +798,17 @@
             $response = $this->submit($querydata);
             //convert xml to array
             $responseobj = new \SimpleXMLElement($response);
+
+            //check for errors
+            if ((string) $responseobj->TYPE !== 'success') {
+                throw new \Exception('Query message stats failed with message: ' . (string) $responseobj->DATA);
+            }
+
             //create blank array to bind items to
             $returnarray = array();
             //clean up result and return array
-            $returnarray['status'] = (string)$responseobj->TYPE;
-            $returnarray['messageid'] = (string)$responseobj->DATA;
+            $returnarray['status'] = (string) $responseobj->TYPE;
+            $returnarray['messageid'] = (string) $responseobj->DATA;
 
             echo $querydata;
             return $response;
@@ -722,12 +817,13 @@
         /**
          * Schedule Message
          * @see Block 5.8
-         * @param $mid
-         * @param $mlid
-         * @param $action
-         * @param $timestamp
+         * @param       $mlid
+         * @param       $mid
+         * @param       $action
+         * @param       $timestamp
          * @param array $attributes
-         * @param null $listapipass
+         * @param null  $listapipass
+         * @throws \Exception
          * @return array
          */
         public function messageSchedule($mlid, $mid, $action, $timestamp = NULL, array $attributes = NULL, $listapipass = NULL) {
@@ -741,10 +837,8 @@
 
             //check if action is schedule if so add delivery dates to query
             $timestampstring = '';
-            //if action is schedule and timestamp is null set time to current time and send immediatly
-            if (!empty($action) && $action == 'schedule' && empty($timestamp)) {
-                $timestamp = '';
-            } elseif (!empty($timestamp)) {
+            //if action is schedule and timestamp is null set time to current time and send immediately
+            if (!empty($action) && $action == 'schedule' && !empty($timestamp)) {
                 $timestampstring .= '<DATA type="delivery-year">' . date('Y', strtotime($timestamp)) . '</DATA>';
                 $timestampstring .= '<DATA type="delivery-month">' . date('n', strtotime($timestamp)) . '</DATA>';
                 $timestampstring .= '<DATA type="delivery-day">' . date('j', strtotime($timestamp)) . '</DATA>';
@@ -773,11 +867,17 @@
             $response = $this->submit($querydata);
             //convert xml to array
             $responseobj = new \SimpleXMLElement($response);
+
+            //check if response was successful if not throw exception
+            if ((string) $responseobj->TYPE !== 'success') {
+                throw new \Exception('Schedualing of message failed with message: ' . $responseobj->TYPE);
+            }
+
             //create blank array to bind items to
             $returnarray = array();
             //clean up result and return array
-            $returnarray['status'] = (string)$responseobj->TYPE;
-            $returnarray['messageid'] = (string)$responseobj->DATA;
+            $returnarray['status'] = (string) $responseobj->TYPE;
+            $returnarray['messageid'] = (string) $responseobj->DATA;
 
             return $returnarray;
         }
@@ -785,15 +885,16 @@
         /**
          * Edit An already created message
          * @see Block 5.9
-         * @param $mlid
-         * @param $mid
-         * @param $fromEmail
-         * @param $fromName
-         * @param $subject
-         * @param $messageFormat
-         * @param $messageText
-         * @param $messageHTML
+         * @param      $mlid
+         * @param      $mid
+         * @param      $fromEmail
+         * @param      $fromName
+         * @param      $subject
+         * @param      $messageFormat
+         * @param      $messageText
+         * @param      $messageHTML
          * @param null $listapipass
+         * @throws \Exception
          * @return array
          */
         public function messageEdit($mlid, $mid, $fromEmail, $fromName, $subject, $messageFormat, $messageText, $messageHTML, $listapipass = NULL) {
@@ -830,11 +931,17 @@
             $response = $this->submit($querydata);
             //convert xml to array
             $responseobj = new \SimpleXMLElement($response);
+
+            //check for errors
+            if ((string) $responseobj->TYPE !== 'success') {
+                throw new \Exception('Editing of message failed with message: ' . (string) $responseobj->DATA);
+            }
+
             //create blank array to bind items to
             $returnarray = array();
             //clean up result and return array
-            $returnarray['status'] = (string)$responseobj->TYPE;
-            $returnarray['messageid'] = (string)$responseobj->DATA;
+            $returnarray['status'] = (string) $responseobj->TYPE;
+            $returnarray['messageid'] = (string) $responseobj->DATA;
 
             return $returnarray;
         }
@@ -842,14 +949,15 @@
         /**
          * Send quick proof of message to emails
          * @see Block 5.10
-         * @param $mlid
-         * @param $mid
-         * @param $emails
+         * @param        $mlid
+         * @param        $mid
+         * @param        $emails
          * @param string $contentanalyzer
          * @param string $inboxsnap
          * @param string $blmon
          * @param string $multi
-         * @param null $listapipass
+         * @param null   $listapipass
+         * @throws \Exception
          * @return array
          */
         public function messageQuickTest($mlid, $mid, $emails, $contentanalyzer = 'off', $inboxsnap = 'off', $blmon = 'off', $multi = '1', $listapipass = NULL) {
@@ -885,15 +993,21 @@
             $response = $this->submit($querydata);
             //convert xml to array
             $responseobj = new \SimpleXMLElement($response);
+
+            //check for errors
+            if ((string) $responseobj->TYPE !== 'success') {
+                throw new \Exception('Message quick test failed with message: ' . (string) $responseobj->DATA);
+            }
+
             //create blank array to bind items to
             $returnarray = array();
             //clean up result and return array
-            $returnarray['status'] = (string)$responseobj->TYPE;
-            $returnarray['message'] = (string)$responseobj->DATA;
-            $returnarray['htmlmid'] = (string)$responseobj->HTML_MID;
-            $returnarray['textmid'] = (string)$responseobj->TEXT_MLID;
-            $returnarray['contentanalyizer'] = (string)$responseobj->CONTENT_ANALYZER;
-            $returnarray['inboxsnap'] = (string)$responseobj->INBOX_SNAPSHOT;
+            $returnarray['status'] = (string) $responseobj->TYPE;
+            $returnarray['message'] = (string) $responseobj->DATA;
+            $returnarray['htmlmid'] = (string) $responseobj->HTML_MID;
+            $returnarray['textmid'] = (string) $responseobj->TEXT_MLID;
+            $returnarray['contentanalyizer'] = (string) $responseobj->CONTENT_ANALYZER;
+            $returnarray['inboxsnap'] = (string) $responseobj->INBOX_SNAPSHOT;
 
             return $returnarray;
         }
@@ -901,7 +1015,7 @@
         /**
          * POSTS REQUESTS TO LYRIS API
          * @param array $data
-         * @return XML
+         * @return array
          */
         private function submit(array $data) {
             // set url var

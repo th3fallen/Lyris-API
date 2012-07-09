@@ -62,11 +62,7 @@
         public function listAdd($name, array $attributes = array(), $listapipass = NULL) {
 
             //if api pass is set in constructor assume lyris global api pass is enabled and use for all requests
-            if (empty($this->apipassword)) {
-                $apipass = $listapipass;
-            } else {
-                $apipass = $this->apipassword;
-            }
+            $this->setApiPassword($listapipass);
 
             if (empty($name)) {
                 die('List name required');
@@ -84,7 +80,7 @@
             $querydata = array(
                 'type'     => 'list', 'activity' => 'add', 'input'    => '<DATASET>
             <SITE_ID>' . $this->siteid . '</SITE_ID>
-            <DATA type="extra" id="password">' . $apipass . '</DATA>
+            <DATA type="extra" id="password">' . $this->apipassword . '</DATA>
             <DATA type="name">' . $name . '</DATA>' . $attributesstring . '</DATASET>'
             );
 
@@ -119,18 +115,14 @@
          */
         public function listDelete($mlid, $listapipass = NULL) {
 
-            //if api pass is set in constructor assume lyris global apipass is enabled and use for all requests
-            if (empty($this->apipassword)) {
-                $apipass = $listapipass;
-            } else {
-                $apipass = $this->apipassword;
-            }
+            //check api password
+            $this->setApiPassword($listapipass);
 
             //build query array
             $querydata = array(
                 'type'     => 'list', 'activity' => 'delete', 'input'    => '<DATASET>
             <SITE_ID>' . $this->siteid . '</SITE_ID>
-            <DATA type="extra" id="password">' . $apipass . '</DATA>
+            <DATA type="extra" id="password">' . $this->apipassword . '</DATA>
             <MLID>' . $mlid . '</MLID>
              </DATASET>'
             );
@@ -163,18 +155,14 @@
          */
         public function listQuery($listapipass = NULL) {
 
-            //if api pass is set in constructor assume lyris global apipass is enabled and use for all requests
-            if (empty($this->apipassword)) {
-                $apipass = $listapipass;
-            } else {
-                $apipass = $this->apipassword;
-            }
+            //check api password
+            $this->setApiPassword($listapipass);
 
             //build query array
             $querydata = array(
                 'type'     => 'list', 'activity' => 'query-listdata', 'input'    => '<DATASET>
             <SITE_ID>' . $this->siteid . '</SITE_ID>
-            <DATA type="extra" id="password">' . $apipass . '</DATA>
+            <DATA type="extra" id="password">' . $this->apipassword . '</DATA>
             </DATASET>'
             );
 
@@ -224,19 +212,15 @@
          */
         public function listEdit($mlid, $name, $from_name, $from_email, $listapipass = NULL) {
 
-            //if api pass is set in constructor assume lyris global apipass is enabled and use for all requests
-            if (empty($this->apipassword)) {
-                $apipass = $listapipass;
-            } else {
-                $apipass = $this->apipassword;
-            }
+            //check api password
+            $this->setApiPassword($listapipass);
 
             //build data for query
             $querydata = array(
                 'type'     => 'list', 'activity' => 'edit', 'input'    => '<DATASET>
             <SITE_ID>' . $this->siteid . '</SITE_ID>
             <MLID>' . $mlid . '</MLID>
-            <DATA type="extra" id="password">' . $apipass . '</DATA>
+            <DATA type="extra" id="password">' . $this->apipassword . '</DATA>
             <DATA type="name">' . $name . '</DATA>
             <DATA type="extra" id="FROM_NAME">' . $from_name . '</DATA>
             <DATA type="extra" id="FROM_EMAIL">' . $from_email . '</DATA>
@@ -280,12 +264,8 @@
          */
         public function memberAdd($mlid, $email, array $attributes, array $demographics = NULL, $listapipass = NULL) {
 
-            //if api pass is set in constructor assume lyris global apipass is enabled and use for all requests
-            if (empty($this->apipassword)) {
-                $apipass = $listapipass;
-            } else {
-                $apipass = $this->apipassword;
-            }
+            //check api password
+            $this->setApiPassword($listapipass);
 
             //loop through attributes and add to query
             $attributesstring = '';
@@ -308,7 +288,7 @@
                 'type'     => 'record', 'activity' => 'add', 'input'    => '<DATASET>
             <SITE_ID>' . $this->siteid . '</SITE_ID>
             <MLID>' . $mlid . '</MLID>
-            <DATA type="extra" id="password">' . $apipass . '</DATA>
+            <DATA type="extra" id="password">' . $this->apipassword . '</DATA>
             <DATA type="email">' . $email . '</DATA>' . $attributesstring . $demographicsstring . '</DATASET>'
             );
 
@@ -341,19 +321,15 @@
          */
         public function memberDownload($mlid, $email, $type, $listapipass = NULL) {
 
-            //if api pass is set in constructor assume lyris global apipass is enabled and use for all requests
-            if (empty($this->apipassword)) {
-                $apipass = $listapipass;
-            } else {
-                $apipass = $this->apipassword;
-            }
+            //check api password
+            $this->setApiPassword($listapipass);
 
             //build data for query
             $querydata = array(
                 'type'     => 'record', 'activity' => 'download', 'input'    => '<DATASET>
             <SITE_ID>' . $this->siteid . '</SITE_ID>
             <MLID>' . $mlid . '</MLID>
-            <DATA type="extra" id="password">' . $apipass . '</DATA>
+            <DATA type="extra" id="password">' . $this->apipassword . '</DATA>
             <DATA type="extra" id="email_notify">' . $email . '</DATA>
             <DATA type="extra" id="type">' . $type . '</DATA>
             </DATASET>'
@@ -388,19 +364,15 @@
          */
         public function memberQuery($mlid, $email, $listapipass = NULL) {
 
-            //if api pass is set in constructor assume lyris global apipass is enabled and use for all requests
-            if (empty($this->apipassword)) {
-                $apipass = $listapipass;
-            } else {
-                $apipass = $this->apipassword;
-            }
+            //check api password
+            $this->setApiPassword($listapipass);
 
             //build data for query
             $querydata = array(
                 'type'     => 'record', 'activity' => 'query-data', 'input'    => '<DATASET>
             <SITE_ID>' . $this->siteid . '</SITE_ID>
             <MLID>' . $mlid . '</MLID>
-            <DATA type="extra" id="password">' . $apipass . '</DATA>
+            <DATA type="extra" id="password">' . $this->apipassword . '</DATA>
             <DATA type="email">' . $email . '</DATA>
             </DATASET>'
             );
@@ -450,19 +422,15 @@
          */
         public function memberQueryList($mlid, $type, $listapipass = NULL) {
 
-            //if api pass is set in constructor assume lyris global apipass is enabled and use for all requests
-            if (empty($this->apipassword)) {
-                $apipass = $listapipass;
-            } else {
-                $apipass = $this->apipassword;
-            }
+            //check api password
+            $this->setApiPassword($listapipass);
 
             //build data for query
             $querydata = array(
                 'type'     => 'record', 'activity' => 'query-listdata', 'input'    => '<DATASET>
             <SITE_ID>' . $this->siteid . '</SITE_ID>
             <MLID>' . $mlid . '</MLID>
-            <DATA type="extra" id="password">' . $apipass . '</DATA>
+            <DATA type="extra" id="password">' . $this->apipassword . '</DATA>
             <DATA type="extra" id="type">' . $type . '</DATA>
             </DATASET>'
             );
@@ -511,12 +479,8 @@
          */
         public function memberEdit($mlid, $email, array $attributes, array $demographics = NULL, $listapipass = NULL) {
 
-            //if api pass is set in constructor assume lyris global apipass is enabled and use for all requests
-            if (empty($this->apipassword)) {
-                $apipass = $listapipass;
-            } else {
-                $apipass = $this->apipassword;
-            }
+            //check api password
+            $this->setApiPassword($listapipass);
 
             //loop through attributes and add to query
             $attributesstring = '';
@@ -539,7 +503,7 @@
                 'type'     => 'record', 'activity' => 'update', 'input'    => '<DATASET>
             <SITE_ID>' . $this->siteid . '</SITE_ID>
             <MLID>' . $mlid . '</MLID>
-            <DATA type="extra" id="password">' . $apipass . '</DATA>
+            <DATA type="extra" id="password">' . $this->apipassword . '</DATA>
             <DATA type="email">' . $email . '</DATA>' . $attributesstring . $demographicsstring . '</DATASET>'
             );
 
@@ -583,12 +547,8 @@
          */
         public function messageAdd($mlid, $fromEmail, $fromName, $subject, $messageFormat, $messageText, $messageHTML, $listapipass = NULL) {
 
-            //if api pass is set in constructor assume lyris global apipass is enabled and use for all requests
-            if (empty($this->apipassword)) {
-                $apipass = $listapipass;
-            } else {
-                $apipass = $this->apipassword;
-            }
+            //check api password
+            $this->setApiPassword($listapipass);
 
             //check if format is html if so add messagehtml to querydata
             if (strtoupper($messageFormat) == 'HTML') {
@@ -602,7 +562,7 @@
                 'type'     => 'message', 'activity' => 'add', 'input'    => '<DATASET>
             <SITE_ID>' . $this->siteid . '</SITE_ID>
             <MLID>' . $mlid . '</MLID>
-            <DATA type="extra" id="password">' . $apipass . '</DATA>
+            <DATA type="extra" id="password">' . $this->apipassword . '</DATA>
             <DATA type="subject">' . $subject . '</DATA>
             <DATA type="from-email">' . $fromEmail . '</DATA>
             <DATA type="from-name">' . $fromName . '</DATA>
@@ -641,12 +601,8 @@
          */
         public function messageCopy($mlid, $mid, $listapipass = NULL) {
 
-            //if api pass is set in constructor assume lyris global apipass is enabled and use for all requests
-            if (empty($this->apipassword)) {
-                $apipass = $listapipass;
-            } else {
-                $apipass = $this->apipassword;
-            }
+            //check api password
+            $this->setApiPassword($listapipass);
 
             //build data for query
             $querydata = array(
@@ -654,7 +610,7 @@
             <SITE_ID>' . $this->siteid . '</SITE_ID>
             <MID>' . $mid . '</MID>
             <MLID>' . $mlid . '</MLID>
-            <DATA type="extra" id="password">' . $apipass . '</DATA>
+            <DATA type="extra" id="password">' . $this->apipassword . '</DATA>
             </DATASET>'
             );
 
@@ -689,12 +645,8 @@
          */
         public function messageProof($mlid, $mid, $text, $listapipass = NULL) {
 
-            //if api pass is set in constructor assume lyris global apipass is enabled and use for all requests
-            if (empty($this->apipassword)) {
-                $apipass = $listapipass;
-            } else {
-                $apipass = $this->apipassword;
-            }
+            //check api password
+            $this->setApiPassword($listapipass);
 
             //build data for query
             $querydata = array(
@@ -702,7 +654,7 @@
             <SITE_ID>' . $this->siteid . '</SITE_ID>
             <MID>' . $mid . '</MID>
             <MLID>' . $mlid . '</MLID>
-            <DATA type="extra" id="password">' . $apipass . '</DATA>
+            <DATA type="extra" id="password">' . $this->apipassword . '</DATA>
             <DATA type="text">' . $text . '</DATA>
             </DATASET>'
             );
@@ -739,12 +691,8 @@
          */
         public function messageQueryData($mlid, $mid, $listapipass = NULL) {
 
-            //if api pass is set in constructor assume lyris global apipass is enabled and use for all requests
-            if (empty($this->apipassword)) {
-                $apipass = $listapipass;
-            } else {
-                $apipass = $this->apipassword;
-            }
+            //check api password
+            $this->setApiPassword($listapipass);
 
             //build data for query
             $querydata = array(
@@ -752,7 +700,7 @@
             <SITE_ID>' . $this->siteid . '</SITE_ID>
             <MLID>' . $mlid . '</MLID>
             <MID>' . $mid . '</MID>
-            <DATA type="extra" id="password">' . $apipass . '</DATA>
+            <DATA type="extra" id="password">' . $this->apipassword . '</DATA>
             </DATASET>'
             );
 
@@ -790,19 +738,15 @@
          */
         public function messageQueryListData($mlid, $startdate = NULL, $enddate = NULL, $listapipass = NULL) {
 
-            //if api pass is set in constructor assume lyris global apipass is enabled and use for all requests
-            if (empty($this->apipassword)) {
-                $apipass = $listapipass;
-            } else {
-                $apipass = $this->apipassword;
-            }
+            //check api password
+            $this->setApiPassword($listapipass);
 
             //build data for query
             $querydata = array(
                 'type'     => 'message', 'activity' => 'query-listdata', 'input'    => '<DATASET>
             <SITE_ID>' . $this->siteid . '</SITE_ID>
             <MLID>' . $mlid . '</MLID>
-            <DATA type="extra" id="password">' . $apipass . '</DATA>
+            <DATA type="extra" id="password">' . $this->apipassword . '</DATA>
             </DATASET>'
             );
 
@@ -838,12 +782,8 @@
          */
         public function messageQueryStats($mid, $mlid, $action, $params = NULL, $listapipass = NULL) {
 
-            //if api pass is set in constructor assume lyris global apipass is enabled and use for all requests
-            if (empty($this->apipassword)) {
-                $apipass = $listapipass;
-            } else {
-                $apipass = $this->apipassword;
-            }
+            //check api password
+            $this->setApiPassword($listapipass);
 
             if ($action == 'clicked-details-background') {
                 $email = '<DATA type="extra" id="email">' . $params['email'] . '</DATA>';
@@ -857,7 +797,7 @@
             <SITE_ID>' . $this->siteid . '</SITE_ID>
             <MID>' . $mid . '</MID>
             <MLID>' . $mlid . '</MLID>
-            <DATA type="extra" id="password">' . $apipass . '</DATA>
+            <DATA type="extra" id="password">' . $this->apipassword . '</DATA>
             <DATA type="' . strtoupper($action) . '"></DATA>' . $email . '</DATASET>'
             );
 
@@ -895,12 +835,8 @@
          */
         public function messageSchedule($mlid, $mid, $action, $timestamp = NULL, array $attributes = NULL, $listapipass = NULL) {
 
-            //if api pass is set in constructor assume lyris global apipass is enabled and use for all requests
-            if (empty($this->apipassword)) {
-                $apipass = $listapipass;
-            } else {
-                $apipass = $this->apipassword;
-            }
+            //check api password
+            $this->setApiPassword($listapipass);
 
             //check if action is schedule if so add delivery dates to query
             $timestampstring = '';
@@ -926,7 +862,7 @@
             <SITE_ID>' . $this->siteid . '</SITE_ID>
             <MID>' . $mid . '</MID>
             <MLID>' . $mlid . '</MLID>
-            <DATA type="extra" id="password">' . $apipass . '</DATA>
+            <DATA type="extra" id="password">' . $this->apipassword . '</DATA>
             <DATA type="action">' . $action . '</DATA>' . $timestampstring . $attributesstring . '</DATASET>'
             );
 
@@ -966,12 +902,8 @@
          */
         public function messageEdit($mlid, $mid, $fromEmail, $fromName, $subject, $messageFormat, $messageText, $messageHTML, $listapipass = NULL) {
 
-            //if api pass is set in constructor assume lyris global apipass is enabled and use for all requests
-            if (empty($this->apipassword)) {
-                $apipass = $listapipass;
-            } else {
-                $apipass = $this->apipassword;
-            }
+            //check api password
+            $this->setApiPassword($listapipass);
 
             //check if format is html if so add messagehtml to querydata
             if (strtoupper($messageFormat) == 'HTML') {
@@ -986,7 +918,7 @@
             <SITE_ID>' . $this->siteid . '</SITE_ID>
             <MID>' . $mid . '</MID>
             <MLID>' . $mlid . '</MLID>
-            <DATA type="extra" id="password">' . $apipass . '</DATA>
+            <DATA type="extra" id="password">' . $this->apipassword . '</DATA>
             <DATA type="subject">' . $subject . '</DATA>
             <DATA type="from-email">' . $fromEmail . '</DATA>
             <DATA type="from-name">' . $fromName . '</DATA>
@@ -1029,12 +961,8 @@
          */
         public function messageQuickTest($mlid, $mid, $emails, $contentanalyzer = 'off', $inboxsnap = 'off', $blmon = 'off', $multi = '1', $listapipass = NULL) {
 
-            //if api pass is set in constructor assume lyris global apipass is enabled and use for all requests
-            if (empty($this->apipassword)) {
-                $apipass = $listapipass;
-            } else {
-                $apipass = $this->apipassword;
-            }
+            //check api password
+            $this->setApiPassword($listapipass);
 
             //explode emails array into csv format
             if (is_array($emails)) {
@@ -1047,7 +975,7 @@
             <SITE_ID>' . $this->siteid . '</SITE_ID>
             <MID>' . $mid . '</MID>
             <MLID>' . $mlid . '</MLID>
-            <DATA type="extra" id="password">' . $apipass . '</DATA>
+            <DATA type="extra" id="password">' . $this->apipassword . '</DATA>
             <DATA type="extra" id="emails">' . $emails . '</DATA>
             <DATA type="extra" id="content_analyzer">' . $contentanalyzer . '</DATA>
             <DATA type="extra" id="inbox_snapshot">' . $inboxsnap . '</DATA>
@@ -1080,11 +1008,21 @@
         }
 
         /**
+         * Sets provided api password for use
+         * @param $password
+         */
+        protected final function setApiPassword($password) {
+            if (empty($this->apipassword)) {
+                $this->apipassword = $password;
+            }
+        }
+
+        /**
          * POSTS REQUESTS TO LYRIS API
          * @param array $data
          * @return XML
          */
-        private function submit(array $data) {
+        private final function submit(array $data) {
             // set url var
             $url = 'https://www.elabs10.com/API/mailing_list.html';
             // open connection

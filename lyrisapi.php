@@ -16,6 +16,11 @@
         private $apipassword;
 
 
+        /**
+         * Gathers Site id and global api password for requests
+         * @param      $siteid
+         * @param null $apipassword
+         */
         public function __construct($siteid, $apipassword = NULL) {
             //set site id
             $this->siteid = $siteid;
@@ -63,12 +68,12 @@
             }
 
             //build data for query
-            $querydata = array('type'     => 'list',
-                               'activity' => 'add',
-                               'input'    => '<DATASET>
+            $querydata = array(
+                'type'     => 'list', 'activity' => 'add', 'input'    => '<DATASET>
             <SITE_ID>' . $this->siteid . '</SITE_ID>
             <DATA type="extra" id="password">' . $apipass . '</DATA>
-            <DATA type="name">' . $name . '</DATA>' . $attributesstring . '</DATASET>');
+            <DATA type="name">' . $name . '</DATA>' . $attributesstring . '</DATASET>'
+            );
 
             //submit data
             $response = $this->submit($querydata);
@@ -109,13 +114,13 @@
             }
 
             //build query array
-            $querydata = array('type'     => 'list',
-                               'activity' => 'delete',
-                               'input'    => '<DATASET>
+            $querydata = array(
+                'type'     => 'list', 'activity' => 'delete', 'input'    => '<DATASET>
             <SITE_ID>' . $this->siteid . '</SITE_ID>
             <DATA type="extra" id="password">' . $apipass . '</DATA>
             <MLID>' . $mlid . '</MLID>
-             </DATASET>');
+             </DATASET>'
+            );
 
             //submit data
             $response = $this->submit($querydata);
@@ -153,12 +158,12 @@
             }
 
             //build query array
-            $querydata = array('type'     => 'list',
-                               'activity' => 'query-listdata',
-                               'input'    => '<DATASET>
+            $querydata = array(
+                'type'     => 'list', 'activity' => 'query-listdata', 'input'    => '<DATASET>
             <SITE_ID>' . $this->siteid . '</SITE_ID>
             <DATA type="extra" id="password">' . $apipass . '</DATA>
-            </DATASET>');
+            </DATASET>'
+            );
 
             //submit data
             $response = $this->submit($querydata);
@@ -214,16 +219,16 @@
             }
 
             //build data for query
-            $querydata = array('type'     => 'list',
-                               'activity' => 'edit',
-                               'input'    => '<DATASET>
+            $querydata = array(
+                'type'     => 'list', 'activity' => 'edit', 'input'    => '<DATASET>
             <SITE_ID>' . $this->siteid . '</SITE_ID>
             <MLID>' . $mlid . '</MLID>
             <DATA type="extra" id="password">' . $apipass . '</DATA>
             <DATA type="name">' . $name . '</DATA>
             <DATA type="extra" id="FROM_NAME">' . $from_name . '</DATA>
             <DATA type="extra" id="FROM_EMAIL">' . $from_email . '</DATA>
-            </DATASET>');
+            </DATASET>'
+            );
 
             //submit data
             $response = $this->submit($querydata);
@@ -286,13 +291,13 @@
             }
 
             //build data for query
-            $querydata = array('type'     => 'record',
-                               'activity' => 'add',
-                               'input'    => '<DATASET>
+            $querydata = array(
+                'type'     => 'record', 'activity' => 'add', 'input'    => '<DATASET>
             <SITE_ID>' . $this->siteid . '</SITE_ID>
             <MLID>' . $mlid . '</MLID>
             <DATA type="extra" id="password">' . $apipass . '</DATA>
-            <DATA type="email">' . $email . '</DATA>' . $attributesstring . $demographicsstring . '</DATASET>');
+            <DATA type="email">' . $email . '</DATA>' . $attributesstring . $demographicsstring . '</DATASET>'
+            );
 
             //submit data
             $response = $this->submit($querydata);
@@ -331,15 +336,15 @@
             }
 
             //build data for query
-            $querydata = array('type'     => 'record',
-                               'activity' => 'download',
-                               'input'    => '<DATASET>
+            $querydata = array(
+                'type'     => 'record', 'activity' => 'download', 'input'    => '<DATASET>
             <SITE_ID>' . $this->siteid . '</SITE_ID>
             <MLID>' . $mlid . '</MLID>
             <DATA type="extra" id="password">' . $apipass . '</DATA>
             <DATA type="extra" id="email_notify">' . $email . '</DATA>
             <DATA type="extra" id="type">' . $type . '</DATA>
-            </DATASET>');
+            </DATASET>'
+            );
 
             //submit data
             $response = $this->submit($querydata);
@@ -378,14 +383,14 @@
             }
 
             //build data for query
-            $querydata = array('type'     => 'record',
-                               'activity' => 'query-data',
-                               'input'    => '<DATASET>
+            $querydata = array(
+                'type'     => 'record', 'activity' => 'query-data', 'input'    => '<DATASET>
             <SITE_ID>' . $this->siteid . '</SITE_ID>
             <MLID>' . $mlid . '</MLID>
             <DATA type="extra" id="password">' . $apipass . '</DATA>
             <DATA type="email">' . $email . '</DATA>
-            </DATASET>');
+            </DATASET>'
+            );
 
             //submit data
             $response = $this->submit($querydata);
@@ -437,14 +442,14 @@
             }
 
             //build data for query
-            $querydata = array('type'     => 'record',
-                               'activity' => 'query-listdata',
-                               'input'    => '<DATASET>
+            $querydata = array(
+                'type'     => 'record', 'activity' => 'query-listdata', 'input'    => '<DATASET>
             <SITE_ID>' . $this->siteid . '</SITE_ID>
             <MLID>' . $mlid . '</MLID>
             <DATA type="extra" id="password">' . $apipass . '</DATA>
             <DATA type="extra" id="type">' . $type . '</DATA>
-            </DATASET>');
+            </DATASET>'
+            );
 
             //submit data
             $response = $this->submit($querydata);
@@ -514,13 +519,13 @@
             }
 
             //build data for query
-            $querydata = array('type'     => 'record',
-                               'activity' => 'update',
-                               'input'    => '<DATASET>
+            $querydata = array(
+                'type'     => 'record', 'activity' => 'update', 'input'    => '<DATASET>
             <SITE_ID>' . $this->siteid . '</SITE_ID>
             <MLID>' . $mlid . '</MLID>
             <DATA type="extra" id="password">' . $apipass . '</DATA>
-            <DATA type="email">' . $email . '</DATA>' . $attributesstring . $demographicsstring . '</DATASET>');
+            <DATA type="email">' . $email . '</DATA>' . $attributesstring . $demographicsstring . '</DATASET>'
+            );
 
             //submit data
             $response = $this->submit($querydata);
@@ -577,9 +582,8 @@
             }
 
             //build data for query
-            $querydata = array('type'     => 'message',
-                               'activity' => 'add',
-                               'input'    => '<DATASET>
+            $querydata = array(
+                'type'     => 'message', 'activity' => 'add', 'input'    => '<DATASET>
             <SITE_ID>' . $this->siteid . '</SITE_ID>
             <MLID>' . $mlid . '</MLID>
             <DATA type="extra" id="password">' . $apipass . '</DATA>
@@ -587,7 +591,9 @@
             <DATA type="from-email">' . $fromEmail . '</DATA>
             <DATA type="from-name">' . $fromName . '</DATA>
             <DATA type="message-format">' . $messageFormat . '</DATA>
-            <DATA type="message-text">' . $messageText . '</DATA>' . $html . '</DATASET>');
+            <DATA type="message-text">' . $messageText . '</DATA>' . $html . '</DATASET>
+            <DATA type="charset">UTF-8</DATA>'
+            );
 
             //submit data
             $response = $this->submit($querydata);
@@ -596,7 +602,7 @@
 
             //check if query was successful if not throw exception
             if ((string) $responseobj->TYPE !== 'success') {
-                throw new \Exception('Adding Message failed with message: ' . $responseobj->DATA);
+                throw new \Exception('Adding Message Failed with message: ' . $responseobj->DATA);
             }
 
             //create blank array to bind items to
@@ -627,14 +633,14 @@
             }
 
             //build data for query
-            $querydata = array('type'     => 'message',
-                               'activity' => 'copy',
-                               'input'    => '<DATASET>
+            $querydata = array(
+                'type'     => 'message', 'activity' => 'copy', 'input'    => '<DATASET>
             <SITE_ID>' . $this->siteid . '</SITE_ID>
             <MID>' . $mid . '</MID>
             <MLID>' . $mlid . '</MLID>
             <DATA type="extra" id="password">' . $apipass . '</DATA>
-            </DATASET>');
+            </DATASET>'
+            );
 
             //submit data
             $response = $this->submit($querydata);
@@ -675,15 +681,15 @@
             }
 
             //build data for query
-            $querydata = array('type'     => 'message',
-                               'activity' => 'proof',
-                               'input'    => '<DATASET>
+            $querydata = array(
+                'type'     => 'message', 'activity' => 'proof', 'input'    => '<DATASET>
             <SITE_ID>' . $this->siteid . '</SITE_ID>
             <MID>' . $mid . '</MID>
             <MLID>' . $mlid . '</MLID>
             <DATA type="extra" id="password">' . $apipass . '</DATA>
             <DATA type="text">' . $text . '</DATA>
-            </DATASET>');
+            </DATASET>'
+            );
 
             //submit data
             $response = $this->submit($querydata);
@@ -707,8 +713,45 @@
             return $returnarray;
         }
 
-        public function messageQueryData() {
-            //TODO: MESSAGEQUERYDATA
+        public function messageQueryData($mlid, $mid, $listapipass = NULL) {
+
+            //if api pass is set in constructor assume lyris global apipass is enabled and use for all requests
+            if (empty($this->apipassword)) {
+                $apipass = $listapipass;
+            } else {
+                $apipass = $this->apipassword;
+            }
+
+            //build data for query
+            $querydata = array(
+                'type'     => 'message', 'activity' => 'query-data', 'input'    => '<DATASET>
+            <SITE_ID>' . $this->siteid . '</SITE_ID>
+            <MLID>' . $mlid . '</MLID>
+            <MID>' . $mid . '</MID>
+            <DATA type="extra" id="password">' . $apipass . '</DATA>
+            </DATASET>'
+            );
+
+            //submit data
+            $response = $this->submit($querydata);
+            //convert xml to array
+            $responseobj = new \SimpleXMLElement($response);
+
+            //check for errors
+            if ((string) $responseobj->TYPE !== 'success') {
+                throw new \Exception('Message data query failed with message: ' . (string) $responseobj->DATA);
+            }
+
+            //create blank array to bind items to
+            $returnarray = array();
+            //clean up result and return array
+            $returnarray['status'] = (string) $responseobj->TYPE;
+
+            foreach ($responseobj->RECORD->DATA as $value) {
+                $returnarray[(string) $value['type']] = (string) $value;
+            }
+
+            return $returnarray;
         }
 
         /**
@@ -731,13 +774,13 @@
             }
 
             //build data for query
-            $querydata = array('type'     => 'message',
-                               'activity' => 'query-listdata',
-                               'input'    => '<DATASET>
+            $querydata = array(
+                'type'     => 'message', 'activity' => 'query-listdata', 'input'    => '<DATASET>
             <SITE_ID>' . $this->siteid . '</SITE_ID>
             <MLID>' . $mlid . '</MLID>
             <DATA type="extra" id="password">' . $apipass . '</DATA>
-            </DATASET>');
+            </DATASET>'
+            );
 
             //submit data
             $response = $this->submit($querydata);
@@ -785,14 +828,14 @@
             }
 
             //build data for query
-            $querydata = array('type'     => 'message',
-                               'activity' => 'query-stats',
-                               'input'    => '<DATASET>
+            $querydata = array(
+                'type'     => 'message', 'activity' => 'query-stats', 'input'    => '<DATASET>
             <SITE_ID>' . $this->siteid . '</SITE_ID>
             <MID>' . $mid . '</MID>
             <MLID>' . $mlid . '</MLID>
             <DATA type="extra" id="password">' . $apipass . '</DATA>
-            <DATA type="' . strtoupper($action) . '"></DATA>' . $email . '</DATASET>');
+            <DATA type="' . strtoupper($action) . '"></DATA>' . $email . '</DATASET>'
+            );
 
             //submit data
             $response = $this->submit($querydata);
@@ -837,8 +880,8 @@
 
             //check if action is schedule if so add delivery dates to query
             $timestampstring = '';
-            //if action is schedule and timestamp is null set time to current time and send immediately
-            if (!empty($action) && $action == 'schedule' && !empty($timestamp)) {
+            //if action is schedule and timestamp is after current date add them to the query if not leave null for immediate send
+            if ($action == 'schedule' && strtotime($timestamp) > time()) {
                 $timestampstring .= '<DATA type="delivery-year">' . date('Y', strtotime($timestamp)) . '</DATA>';
                 $timestampstring .= '<DATA type="delivery-month">' . date('n', strtotime($timestamp)) . '</DATA>';
                 $timestampstring .= '<DATA type="delivery-day">' . date('j', strtotime($timestamp)) . '</DATA>';
@@ -854,14 +897,14 @@
             }
 
             //build data for query
-            $querydata = array('type'     => 'message',
-                               'activity' => 'schedule',
-                               'input'    => '<DATASET>
+            $querydata = array(
+                'type'     => 'message', 'activity' => 'schedule', 'input'    => '<DATASET>
             <SITE_ID>' . $this->siteid . '</SITE_ID>
             <MID>' . $mid . '</MID>
             <MLID>' . $mlid . '</MLID>
             <DATA type="extra" id="password">' . $apipass . '</DATA>
-            <DATA type="action">' . $action . '</DATA>' . $timestampstring . $attributesstring . '</DATASET>');
+            <DATA type="action">' . $action . '</DATA>' . $timestampstring . $attributesstring . '</DATASET>'
+            );
 
             //submit data
             $response = $this->submit($querydata);
@@ -914,9 +957,8 @@
             }
 
             //build data for query
-            $querydata = array('type'     => 'message',
-                               'activity' => 'update',
-                               'input'    => '<DATASET>
+            $querydata = array(
+                'type'     => 'message', 'activity' => 'update', 'input'    => '<DATASET>
             <SITE_ID>' . $this->siteid . '</SITE_ID>
             <MID>' . $mid . '</MID>
             <MLID>' . $mlid . '</MLID>
@@ -925,7 +967,8 @@
             <DATA type="from-email">' . $fromEmail . '</DATA>
             <DATA type="from-name">' . $fromName . '</DATA>
             <DATA type="message-format">' . $messageFormat . '</DATA>
-            <DATA type="message-text">' . $messageText . '</DATA>' . $html . '</DATASET>');
+            <DATA type="message-text">' . $messageText . '</DATA>' . $html . '</DATASET>'
+            );
 
             //submit data
             $response = $this->submit($querydata);
@@ -975,9 +1018,8 @@
             }
 
             //build data for query
-            $querydata = array('type'     => 'message',
-                               'activity' => 'message-quicktest',
-                               'input'    => '<DATASET>
+            $querydata = array(
+                'type'     => 'message', 'activity' => 'message-quicktest', 'input'    => '<DATASET>
             <SITE_ID>' . $this->siteid . '</SITE_ID>
             <MID>' . $mid . '</MID>
             <MLID>' . $mlid . '</MLID>
@@ -987,7 +1029,8 @@
             <DATA type="extra" id="inbox_snapshot">' . $inboxsnap . '</DATA>
             <DATA type="extra" id="back_list_monitor">' . $blmon . '</DATA>
             <DATA type="extra" id="multi">' . $multi . '</DATA>
-            </DATASET>');
+            </DATASET>'
+            );
 
             //submit data
             $response = $this->submit($querydata);
@@ -1015,7 +1058,7 @@
         /**
          * POSTS REQUESTS TO LYRIS API
          * @param array $data
-         * @return array
+         * @return XML
          */
         private function submit(array $data) {
             // set url var
@@ -1038,5 +1081,3 @@
         }
 
     }
-
-    ?>

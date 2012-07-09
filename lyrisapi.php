@@ -1,6 +1,7 @@
 <?php
 
     /**
+     * LyrisHQ API Library
      * @author Clark Tomlinson
      * @package LyrisAPI
      * @since Jun 19, 2012, 12:16:32 PM
@@ -10,9 +11,21 @@
 
     namespace Lyris;
 
+    /**
+     * Handles all LyrisHQ API interactions
+     */
     class API {
 
+        /**
+         * Stores siteID for class functions
+         * @var
+         */
         private $siteid;
+
+        /**
+         * Stores global api password for all requests
+         * @var null
+         */
         private $apipassword;
 
 
@@ -41,8 +54,8 @@
          * Add Mailing List
          * @see Block 2.1
          * @param string $name
-         * @param string $listapipass
          * @param array  $attributes
+         * @param string $listapipass
          * @throws \Exception
          * @return array
          */
@@ -419,6 +432,9 @@
         }
 
 
+        /**
+         * Will query all memeber status
+         */
         public function memberQueryStats() {
             //TODO: Query Stats
         }
@@ -713,6 +729,14 @@
             return $returnarray;
         }
 
+        /**
+         * Gathers all stats of single message
+         * @param      $mlid
+         * @param      $mid
+         * @param null $listapipass
+         * @return array
+         * @throws \Exception
+         */
         public function messageQueryData($mlid, $mid, $listapipass = NULL) {
 
             //if api pass is set in constructor assume lyris global apipass is enabled and use for all requests

@@ -1,0 +1,968 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project version="2.0.0a7" title="">
+  <file path="index.php" hash="58839c47d2bbcec3ac61df588da962f6" package="Default">
+    <include line="5" type="Require Once" package="Default">
+      <name>lyrisapi.php</name>
+      <docblock line="2">
+        <description><![CDATA[Dev 1 list id: 205199]]></description>
+        <long-description><![CDATA[]]></long-description>
+      </docblock>
+    </include>
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file index.php</error>
+    </parse_markers>
+  </file>
+  <file path="lyrisapi.php" hash="69ad324425f65122aecd9f972b368e17" package="LyrisAPI">
+    <docblock line="3">
+      <description><![CDATA[LyrisHQ API Library]]></description>
+      <long-description><![CDATA[]]></long-description>
+      <tag line="3" name="author" description="Clark Tomlinson"/>
+      <tag line="3" name="package" description="LyrisAPI"/>
+      <tag line="3" name="since" description="Jun 19, 2012, 12:16:32 PM"/>
+      <tag line="3" name="link" description="http://www.clarkt.com" link="http://www.clarkt.com"/>
+      <tag line="3" name="copyright" description="2012"/>
+    </docblock>
+    <class final="false" abstract="false" namespace="Lyris" line="17" package="Default">
+      <extends/>
+      <name>API</name>
+      <full_name>\Lyris\API</full_name>
+      <docblock line="14">
+        <description><![CDATA[Handles all LyrisHQ API interactions]]></description>
+        <long-description><![CDATA[]]></long-description>
+      </docblock>
+      <property final="false" static="false" visibility="private" line="23" namespace="Lyris" package="Default">
+        <name>$siteid</name>
+        <default><![CDATA[]]></default>
+        <docblock line="19">
+          <description><![CDATA[Stores siteID for class functions]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="19" name="var" description="" type="\Lyris\"/>
+        </docblock>
+      </property>
+      <property final="false" static="false" visibility="private" line="29" namespace="Lyris" package="Default">
+        <name>$apipassword</name>
+        <default><![CDATA[]]></default>
+        <docblock line="25">
+          <description><![CDATA[Stores global api password for all requests]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="25" name="var" description="" type="null">
+            <type by_reference="false">null</type>
+          </tag>
+        </docblock>
+      </property>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Lyris" line="37" package="Default">
+        <name>__construct</name>
+        <full_name>__construct</full_name>
+        <docblock line="32">
+          <description><![CDATA[Gathers Site id and global api password for requests]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="32" name="param" description="" type="" variable="$siteid"/>
+          <tag line="32" name="param" description="" type="null" variable="$apipassword">
+            <type by_reference="false">null</type>
+          </tag>
+        </docblock>
+        <argument line="37">
+          <name>$siteid</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="37">
+          <name>$apipassword</name>
+          <default><![CDATA[NULL]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Lyris" line="62" package="Default">
+        <name>listAdd</name>
+        <full_name>listAdd</full_name>
+        <docblock line="53">
+          <description><![CDATA[Add Mailing List]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="53" name="see" description="\Lyris\Block" refers="\Lyris\Block"/>
+          <tag line="53" name="param" description="" type="string" variable="$name">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="53" name="param" description="" type="array" variable="$attributes">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="53" name="param" description="" type="string" variable="$listapipass">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="53" name="throws" description="" type="\Exception">
+            <type by_reference="false">\Exception</type>
+          </tag>
+          <tag line="53" name="return" description="" type="array">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+        <argument line="62">
+          <name>$name</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="62">
+          <name>$attributes</name>
+          <default><![CDATA[array()]]></default>
+          <type>array</type>
+        </argument>
+        <argument line="62">
+          <name>$listapipass</name>
+          <default><![CDATA[NULL]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Lyris" line="120" package="Default">
+        <name>listDelete</name>
+        <full_name>listDelete</full_name>
+        <docblock line="112">
+          <description><![CDATA[Delete Mailing List]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="112" name="see" description="\Lyris\Block" refers="\Lyris\Block"/>
+          <tag line="112" name="param" description="" type="string" variable="$mlid">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="112" name="param" description="" type="" variable="$listapipass"/>
+          <tag line="112" name="throws" description="" type="\Exception">
+            <type by_reference="false">\Exception</type>
+          </tag>
+          <tag line="112" name="return" description="" type="array">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+        <argument line="120">
+          <name>$mlid</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="120">
+          <name>$listapipass</name>
+          <default><![CDATA[NULL]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Lyris" line="164" package="Default">
+        <name>listQuery</name>
+        <full_name>listQuery</full_name>
+        <docblock line="157">
+          <description><![CDATA[Query for all lists and relevent data]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="157" name="see" description="\Lyris\Block" refers="\Lyris\Block"/>
+          <tag line="157" name="param" description="" type="string" variable="$listapipass">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="157" name="throws" description="" type="\Exception">
+            <type by_reference="false">\Exception</type>
+          </tag>
+          <tag line="157" name="return" description="" type="array">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+        <argument line="164">
+          <name>$listapipass</name>
+          <default><![CDATA[NULL]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Lyris" line="225" package="Default">
+        <name>listEdit</name>
+        <full_name>listEdit</full_name>
+        <docblock line="214">
+          <description><![CDATA[Edit Mailing List]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="214" name="see" description="\Lyris\Block" refers="\Lyris\Block"/>
+          <tag line="214" name="param" description="" type="string" variable="$mlid">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="214" name="param" description="" type="string" variable="$name">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="214" name="param" description="" type="string" variable="$from_name">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="214" name="param" description="" type="string" variable="$from_email">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="214" name="param" description="" type="string" variable="$listapipass">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="214" name="throws" description="" type="\Exception">
+            <type by_reference="false">\Exception</type>
+          </tag>
+          <tag line="214" name="return" description="" type="array">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+        <argument line="225">
+          <name>$mlid</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="225">
+          <name>$name</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="225">
+          <name>$from_name</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="225">
+          <name>$from_email</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="225">
+          <name>$listapipass</name>
+          <default><![CDATA[NULL]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Lyris" line="281" package="Default">
+        <name>memberAdd</name>
+        <full_name>memberAdd</full_name>
+        <docblock line="270">
+          <description><![CDATA[Add member to list]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="270" name="see" description="\Lyris\Block" refers="\Lyris\Block"/>
+          <tag line="270" name="param" description="" type="int" variable="$mlid">
+            <type by_reference="false">int</type>
+          </tag>
+          <tag line="270" name="param" description="" type="string" variable="$email">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="270" name="param" description="" type="array" variable="$attributes">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="270" name="param" description="" type="array" variable="$demographics">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="270" name="param" description="" type="string" variable="$listapipass">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="270" name="throws" description="" type="\Exception">
+            <type by_reference="false">\Exception</type>
+          </tag>
+          <tag line="270" name="return" description="" type="array">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+        <argument line="281">
+          <name>$mlid</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="281">
+          <name>$email</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="281">
+          <name>$attributes</name>
+          <default><![CDATA[]]></default>
+          <type>array</type>
+        </argument>
+        <argument line="281">
+          <name>$demographics</name>
+          <default><![CDATA[NULL]]></default>
+          <type>array</type>
+        </argument>
+        <argument line="281">
+          <name>$listapipass</name>
+          <default><![CDATA[NULL]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Lyris" line="342" package="Default">
+        <name>memberDownload</name>
+        <full_name>memberDownload</full_name>
+        <docblock line="332">
+          <description><![CDATA[Download Members of Mailing list]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="332" name="see" description="\Lyris\Block" refers="\Lyris\Block"/>
+          <tag line="332" name="param" description="" type="\Lyris\type" variable="$mlid">
+            <type by_reference="false">\Lyris\type</type>
+          </tag>
+          <tag line="332" name="param" description="" type="\Lyris\type" variable="$email">
+            <type by_reference="false">\Lyris\type</type>
+          </tag>
+          <tag line="332" name="param" description="" type="\Lyris\type" variable="$type">
+            <type by_reference="false">\Lyris\type</type>
+          </tag>
+          <tag line="332" name="param" description="" type="string" variable="$listapipass">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="332" name="throws" description="" type="\Exception">
+            <type by_reference="false">\Exception</type>
+          </tag>
+          <tag line="332" name="return" description="" type="array">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+        <argument line="342">
+          <name>$mlid</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="342">
+          <name>$email</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="342">
+          <name>$type</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="342">
+          <name>$listapipass</name>
+          <default><![CDATA[NULL]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Lyris" line="389" package="Default">
+        <name>memberQuery</name>
+        <full_name>memberQuery</full_name>
+        <docblock line="380">
+          <description><![CDATA[Query Members]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="380" name="see" description="\Lyris\Block" refers="\Lyris\Block"/>
+          <tag line="380" name="param" description="" type="\Lyris\numeric" variable="$mlid">
+            <type by_reference="false">\Lyris\numeric</type>
+          </tag>
+          <tag line="380" name="param" description="" type="string" variable="$email">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="380" name="param" description="" type="string" variable="$listapipass">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="380" name="throws" description="" type="\Exception">
+            <type by_reference="false">\Exception</type>
+          </tag>
+          <tag line="380" name="return" description="" type="array">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+        <argument line="389">
+          <name>$mlid</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="389">
+          <name>$email</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="389">
+          <name>$listapipass</name>
+          <default><![CDATA[NULL]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Lyris" line="438" package="Default">
+        <name>memberQueryStats</name>
+        <full_name>memberQueryStats</full_name>
+        <docblock line="435">
+          <description><![CDATA[Will query all memeber status]]></description>
+          <long-description><![CDATA[]]></long-description>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Lyris" line="451" package="Default">
+        <name>memberQueryList</name>
+        <full_name>memberQueryList</full_name>
+        <docblock line="442">
+          <description><![CDATA[Query list for member data]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="442" name="see" description="\Lyris\Block" refers="\Lyris\Block"/>
+          <tag line="442" name="param" description="" type="" variable="$mlid"/>
+          <tag line="442" name="param" description="" type="" variable="$type"/>
+          <tag line="442" name="param" description="" type="null" variable="$listapipass">
+            <type by_reference="false">null</type>
+          </tag>
+          <tag line="442" name="throws" description="" type="\Exception">
+            <type by_reference="false">\Exception</type>
+          </tag>
+          <tag line="442" name="return" description="" type="array">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+        <argument line="451">
+          <name>$mlid</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="451">
+          <name>$type</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="451">
+          <name>$listapipass</name>
+          <default><![CDATA[NULL]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Lyris" line="512" package="Default">
+        <name>memberEdit</name>
+        <full_name>memberEdit</full_name>
+        <docblock line="501">
+          <description><![CDATA[Edit List Member(Subscriber)]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="501" name="see" description="\Lyris\Block" refers="\Lyris\Block"/>
+          <tag line="501" name="param" description="" type="string" variable="$mlid">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="501" name="param" description="" type="string" variable="$email">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="501" name="param" description="" type="array" variable="$attributes">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="501" name="param" description="" type="array" variable="$demographics">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="501" name="param" description="" type="" variable="$listapipass"/>
+          <tag line="501" name="throws" description="" type="\Exception">
+            <type by_reference="false">\Exception</type>
+          </tag>
+          <tag line="501" name="return" description="" type="array">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+        <argument line="512">
+          <name>$mlid</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="512">
+          <name>$email</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="512">
+          <name>$attributes</name>
+          <default><![CDATA[]]></default>
+          <type>array</type>
+        </argument>
+        <argument line="512">
+          <name>$demographics</name>
+          <default><![CDATA[NULL]]></default>
+          <type>array</type>
+        </argument>
+        <argument line="512">
+          <name>$listapipass</name>
+          <default><![CDATA[NULL]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Lyris" line="584" package="Default">
+        <name>messageAdd</name>
+        <full_name>messageAdd</full_name>
+        <docblock line="570">
+          <description><![CDATA[Add Message]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="570" name="see" description="\Lyris\Block" refers="\Lyris\Block"/>
+          <tag line="570" name="param" description="" type="string" variable="$mlid">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="570" name="param" description="" type="string" variable="$fromEmail">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="570" name="param" description="" type="string" variable="$fromName">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="570" name="param" description="" type="string" variable="$subject">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="570" name="param" description="" type="string" variable="$messageFormat">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="570" name="param" description="" type="string" variable="$messageText">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="570" name="param" description="" type="string" variable="$messageHTML">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="570" name="param" description="" type="" variable="$listapipass"/>
+          <tag line="570" name="throws" description="" type="\Exception">
+            <type by_reference="false">\Exception</type>
+          </tag>
+          <tag line="570" name="return" description="" type="array">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+        <argument line="584">
+          <name>$mlid</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="584">
+          <name>$fromEmail</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="584">
+          <name>$fromName</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="584">
+          <name>$subject</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="584">
+          <name>$messageFormat</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="584">
+          <name>$messageText</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="584">
+          <name>$messageHTML</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="584">
+          <name>$listapipass</name>
+          <default><![CDATA[NULL]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Lyris" line="642" package="Default">
+        <name>messageCopy</name>
+        <full_name>messageCopy</full_name>
+        <docblock line="633">
+          <description><![CDATA[Copy message]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="633" name="see" description="\Lyris\Block" refers="\Lyris\Block"/>
+          <tag line="633" name="param" description="" type="" variable="$mlid"/>
+          <tag line="633" name="param" description="" type="" variable="$mid"/>
+          <tag line="633" name="param" description="" type="null" variable="$listapipass">
+            <type by_reference="false">null</type>
+          </tag>
+          <tag line="633" name="throws" description="" type="\Exception">
+            <type by_reference="false">\Exception</type>
+          </tag>
+          <tag line="633" name="return" description="" type="array">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+        <argument line="642">
+          <name>$mlid</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="642">
+          <name>$mid</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="642">
+          <name>$listapipass</name>
+          <default><![CDATA[NULL]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Lyris" line="690" package="Default">
+        <name>messageProof</name>
+        <full_name>messageProof</full_name>
+        <docblock line="680">
+          <description><![CDATA[Proof a created message]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="680" name="see" description="\Lyris\Block" refers="\Lyris\Block"/>
+          <tag line="680" name="param" description="" type="" variable="$mlid"/>
+          <tag line="680" name="param" description="" type="" variable="$mid"/>
+          <tag line="680" name="param" description="" type="" variable="$text"/>
+          <tag line="680" name="param" description="" type="null" variable="$listapipass">
+            <type by_reference="false">null</type>
+          </tag>
+          <tag line="680" name="throws" description="" type="\Exception">
+            <type by_reference="false">\Exception</type>
+          </tag>
+          <tag line="680" name="return" description="" type="array">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+        <argument line="690">
+          <name>$mlid</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="690">
+          <name>$mid</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="690">
+          <name>$text</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="690">
+          <name>$listapipass</name>
+          <default><![CDATA[NULL]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Lyris" line="740" package="Default">
+        <name>messageQueryData</name>
+        <full_name>messageQueryData</full_name>
+        <docblock line="732">
+          <description><![CDATA[Gathers all stats of single message]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="732" name="param" description="" type="" variable="$mlid"/>
+          <tag line="732" name="param" description="" type="" variable="$mid"/>
+          <tag line="732" name="param" description="" type="null" variable="$listapipass">
+            <type by_reference="false">null</type>
+          </tag>
+          <tag line="732" name="return" description="" type="array">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="732" name="throws" description="" type="\Exception">
+            <type by_reference="false">\Exception</type>
+          </tag>
+        </docblock>
+        <argument line="740">
+          <name>$mlid</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="740">
+          <name>$mid</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="740">
+          <name>$listapipass</name>
+          <default><![CDATA[NULL]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Lyris" line="791" package="Default">
+        <name>messageQueryListData</name>
+        <full_name>messageQueryListData</full_name>
+        <docblock line="781">
+          <description><![CDATA[Get all messages in a list]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="781" name="see" description="\Lyris\Block" refers="\Lyris\Block"/>
+          <tag line="781" name="param" description="" type="" variable="$mlid"/>
+          <tag line="781" name="param" description="" type="null" variable="$startdate">
+            <type by_reference="false">null</type>
+          </tag>
+          <tag line="781" name="param" description="" type="null" variable="$enddate">
+            <type by_reference="false">null</type>
+          </tag>
+          <tag line="781" name="param" description="" type="null" variable="$listapipass">
+            <type by_reference="false">null</type>
+          </tag>
+          <tag line="781" name="throws" description="" type="\Exception">
+            <type by_reference="false">\Exception</type>
+          </tag>
+          <tag line="781" name="return" description="" type="array">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+        <argument line="791">
+          <name>$mlid</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="791">
+          <name>$startdate</name>
+          <default><![CDATA[NULL]]></default>
+          <type/>
+        </argument>
+        <argument line="791">
+          <name>$enddate</name>
+          <default><![CDATA[NULL]]></default>
+          <type/>
+        </argument>
+        <argument line="791">
+          <name>$listapipass</name>
+          <default><![CDATA[NULL]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Lyris" line="839" package="Default">
+        <name>messageQueryStats</name>
+        <full_name>messageQueryStats</full_name>
+        <docblock line="828">
+          <description><![CDATA[Query Messages Stats]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="828" name="see" description="\Lyris\Block" refers="\Lyris\Block"/>
+          <tag line="828" name="param" description="" type="" variable="$mid"/>
+          <tag line="828" name="param" description="" type="" variable="$mlid"/>
+          <tag line="828" name="param" description="" type="" variable="$action"/>
+          <tag line="828" name="param" description="" type="null" variable="$params">
+            <type by_reference="false">null</type>
+          </tag>
+          <tag line="828" name="param" description="" type="null" variable="$listapipass">
+            <type by_reference="false">null</type>
+          </tag>
+          <tag line="828" name="throws" description="" type="\Exception">
+            <type by_reference="false">\Exception</type>
+          </tag>
+          <tag line="828" name="return" description="" type="\Lyris\XML">
+            <type by_reference="false">\Lyris\XML</type>
+          </tag>
+        </docblock>
+        <argument line="839">
+          <name>$mid</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="839">
+          <name>$mlid</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="839">
+          <name>$action</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="839">
+          <name>$params</name>
+          <default><![CDATA[NULL]]></default>
+          <type/>
+        </argument>
+        <argument line="839">
+          <name>$listapipass</name>
+          <default><![CDATA[NULL]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Lyris" line="896" package="Default">
+        <name>messageSchedule</name>
+        <full_name>messageSchedule</full_name>
+        <docblock line="884">
+          <description><![CDATA[Schedule Message]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="884" name="see" description="\Lyris\Block" refers="\Lyris\Block"/>
+          <tag line="884" name="param" description="" type="" variable="$mlid"/>
+          <tag line="884" name="param" description="" type="" variable="$mid"/>
+          <tag line="884" name="param" description="" type="" variable="$action"/>
+          <tag line="884" name="param" description="" type="" variable="$timestamp"/>
+          <tag line="884" name="param" description="" type="array" variable="$attributes">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="884" name="param" description="" type="null" variable="$listapipass">
+            <type by_reference="false">null</type>
+          </tag>
+          <tag line="884" name="throws" description="" type="\Exception">
+            <type by_reference="false">\Exception</type>
+          </tag>
+          <tag line="884" name="return" description="" type="array">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+        <argument line="896">
+          <name>$mlid</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="896">
+          <name>$mid</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="896">
+          <name>$action</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="896">
+          <name>$timestamp</name>
+          <default><![CDATA[NULL]]></default>
+          <type/>
+        </argument>
+        <argument line="896">
+          <name>$attributes</name>
+          <default><![CDATA[NULL]]></default>
+          <type>array</type>
+        </argument>
+        <argument line="896">
+          <name>$listapipass</name>
+          <default><![CDATA[NULL]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Lyris" line="967" package="Default">
+        <name>messageEdit</name>
+        <full_name>messageEdit</full_name>
+        <docblock line="952">
+          <description><![CDATA[Edit An already created message]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="952" name="see" description="\Lyris\Block" refers="\Lyris\Block"/>
+          <tag line="952" name="param" description="" type="" variable="$mlid"/>
+          <tag line="952" name="param" description="" type="" variable="$mid"/>
+          <tag line="952" name="param" description="" type="" variable="$fromEmail"/>
+          <tag line="952" name="param" description="" type="" variable="$fromName"/>
+          <tag line="952" name="param" description="" type="" variable="$subject"/>
+          <tag line="952" name="param" description="" type="" variable="$messageFormat"/>
+          <tag line="952" name="param" description="" type="" variable="$messageText"/>
+          <tag line="952" name="param" description="" type="" variable="$messageHTML"/>
+          <tag line="952" name="param" description="" type="null" variable="$listapipass">
+            <type by_reference="false">null</type>
+          </tag>
+          <tag line="952" name="throws" description="" type="\Exception">
+            <type by_reference="false">\Exception</type>
+          </tag>
+          <tag line="952" name="return" description="" type="array">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+        <argument line="967">
+          <name>$mlid</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="967">
+          <name>$mid</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="967">
+          <name>$fromEmail</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="967">
+          <name>$fromName</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="967">
+          <name>$subject</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="967">
+          <name>$messageFormat</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="967">
+          <name>$messageText</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="967">
+          <name>$messageHTML</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="967">
+          <name>$listapipass</name>
+          <default><![CDATA[NULL]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="Lyris" line="1030" package="Default">
+        <name>messageQuickTest</name>
+        <full_name>messageQuickTest</full_name>
+        <docblock line="1016">
+          <description><![CDATA[Send quick proof of message to emails]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="1016" name="see" description="\Lyris\Block" refers="\Lyris\Block"/>
+          <tag line="1016" name="param" description="" type="" variable="$mlid"/>
+          <tag line="1016" name="param" description="" type="" variable="$mid"/>
+          <tag line="1016" name="param" description="" type="" variable="$emails"/>
+          <tag line="1016" name="param" description="" type="string" variable="$contentanalyzer">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="1016" name="param" description="" type="string" variable="$inboxsnap">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="1016" name="param" description="" type="string" variable="$blmon">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="1016" name="param" description="" type="string" variable="$multi">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="1016" name="param" description="" type="null" variable="$listapipass">
+            <type by_reference="false">null</type>
+          </tag>
+          <tag line="1016" name="throws" description="" type="\Exception">
+            <type by_reference="false">\Exception</type>
+          </tag>
+          <tag line="1016" name="return" description="" type="array">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+        <argument line="1030">
+          <name>$mlid</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="1030">
+          <name>$mid</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="1030">
+          <name>$emails</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="1030">
+          <name>$contentanalyzer</name>
+          <default><![CDATA['off']]></default>
+          <type/>
+        </argument>
+        <argument line="1030">
+          <name>$inboxsnap</name>
+          <default><![CDATA['off']]></default>
+          <type/>
+        </argument>
+        <argument line="1030">
+          <name>$blmon</name>
+          <default><![CDATA['off']]></default>
+          <type/>
+        </argument>
+        <argument line="1030">
+          <name>$multi</name>
+          <default><![CDATA['1']]></default>
+          <type/>
+        </argument>
+        <argument line="1030">
+          <name>$listapipass</name>
+          <default><![CDATA[NULL]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="private" namespace="Lyris" line="1087" package="Default">
+        <name>submit</name>
+        <full_name>submit</full_name>
+        <docblock line="1082">
+          <description><![CDATA[POSTS REQUESTS TO LYRIS API]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="1082" name="param" description="" type="array" variable="$data">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="1082" name="return" description="" type="\Lyris\XML">
+            <type by_reference="false">\Lyris\XML</type>
+          </tag>
+        </docblock>
+        <argument line="1087">
+          <name>$data</name>
+          <default><![CDATA[]]></default>
+          <type>array</type>
+        </argument>
+      </method>
+    </class>
+    <markers>
+      <todo line="439">Query Stats</todo>
+    </markers>
+  </file>
+  <package name="Default" full_name="Default"/>
+  <package name="LyrisAPI" full_name="LyrisAPI"/>
+  <namespace name="Lyris" full_name="Lyris"/>
+  <marker count="1">todo</marker>
+  <marker count="0">fixme</marker>
+  <deprecated count="0"/>
+</project>

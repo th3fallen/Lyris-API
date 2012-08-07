@@ -84,9 +84,9 @@
 				        'type'     => 'list',
 				        'activity' => 'add',
 				        'input'    => '<DATASET>
-            <SITE_ID>' . $this->siteid . '</SITE_ID>
-            <DATA type="extra" id="password">' . $this->apipassword . '</DATA>
-            <DATA type="name">' . $name . '</DATA>' . $attributesstring . '</DATASET>'
+                            <SITE_ID>' . $this->siteid . '</SITE_ID>
+                            <DATA type="extra" id="password">' . $this->apipassword . '</DATA>
+                            <DATA type="name">' . $name . '</DATA>' . $attributesstring . '</DATASET>'
 			        );
 
 			        //submit data
@@ -129,10 +129,10 @@
 				        'type'     => 'list',
 				        'activity' => 'delete',
 				        'input'    => '<DATASET>
-            <SITE_ID>' . $this->siteid . '</SITE_ID>
-            <DATA type="extra" id="password">' . $this->apipassword . '</DATA>
-            <MLID>' . $mlid . '</MLID>
-             </DATASET>'
+                            <SITE_ID>' . $this->siteid . '</SITE_ID>
+                            <DATA type="extra" id="password">' . $this->apipassword . '</DATA>
+                            <MLID>' . $mlid . '</MLID>
+                             </DATASET>'
 			        );
 
 			        //submit data
@@ -172,9 +172,9 @@
 				        'type'     => 'list',
 				        'activity' => 'query-listdata',
 				        'input'    => '<DATASET>
-            <SITE_ID>' . $this->siteid . '</SITE_ID>
-            <DATA type="extra" id="password">' . $this->apipassword . '</DATA>
-            </DATASET>'
+                            <SITE_ID>' . $this->siteid . '</SITE_ID>
+                            <DATA type="extra" id="password">' . $this->apipassword . '</DATA>
+                            </DATASET>'
 			        );
 
 			        //submit data
@@ -232,13 +232,13 @@
 				        'type'     => 'list',
 				        'activity' => 'edit',
 				        'input'    => '<DATASET>
-            <SITE_ID>' . $this->siteid . '</SITE_ID>
-            <MLID>' . $mlid . '</MLID>
-            <DATA type="extra" id="password">' . $this->apipassword . '</DATA>
-            <DATA type="name">' . $name . '</DATA>
-            <DATA type="extra" id="FROM_NAME">' . $from_name . '</DATA>
-            <DATA type="extra" id="FROM_EMAIL">' . $from_email . '</DATA>
-            </DATASET>'
+                            <SITE_ID>' . $this->siteid . '</SITE_ID>
+                            <MLID>' . $mlid . '</MLID>
+                            <DATA type="extra" id="password">' . $this->apipassword . '</DATA>
+                            <DATA type="name">' . $name . '</DATA>
+                            <DATA type="extra" id="FROM_NAME">' . $from_name . '</DATA>
+                            <DATA type="extra" id="FROM_EMAIL">' . $from_email . '</DATA>
+                            </DATASET>'
 			        );
 
 			        //submit data
@@ -303,10 +303,10 @@
 				        'type'     => 'record',
 				        'activity' => 'add',
 				        'input'    => '<DATASET>
-            <SITE_ID>' . $this->siteid . '</SITE_ID>
-            <MLID>' . $mlid . '</MLID>
-            <DATA type="extra" id="password">' . $this->apipassword . '</DATA>
-            <DATA type="email">' . $email . '</DATA>' . $attributesstring . $demographicsstring . '</DATASET>'
+                            <SITE_ID>' . $this->siteid . '</SITE_ID>
+                            <MLID>' . $mlid . '</MLID>
+                            <DATA type="extra" id="password">' . $this->apipassword . '</DATA>
+                            <DATA type="email">' . $email . '</DATA>' . $attributesstring . $demographicsstring . '</DATASET>'
 			        );
 
 			        //submit data
@@ -347,12 +347,12 @@
 				        'type'     => 'record',
 				        'activity' => 'download',
 				        'input'    => '<DATASET>
-            <SITE_ID>' . $this->siteid . '</SITE_ID>
-            <MLID>' . $mlid . '</MLID>
-            <DATA type="extra" id="password">' . $this->apipassword . '</DATA>
-            <DATA type="extra" id="email_notify">' . $email . '</DATA>
-            <DATA type="extra" id="type">' . $type . '</DATA>
-            </DATASET>'
+                            <SITE_ID>' . $this->siteid . '</SITE_ID>
+                            <MLID>' . $mlid . '</MLID>
+                            <DATA type="extra" id="password">' . $this->apipassword . '</DATA>
+                            <DATA type="extra" id="email_notify">' . $email . '</DATA>
+                            <DATA type="extra" id="type">' . $type . '</DATA>
+                            </DATASET>'
 			        );
 
 			        //submit data
@@ -393,11 +393,11 @@
 				        'type'     => 'record',
 				        'activity' => 'query-data',
 				        'input'    => '<DATASET>
-            <SITE_ID>' . $this->siteid . '</SITE_ID>
-            <MLID>' . $mlid . '</MLID>
-            <DATA type="extra" id="password">' . $this->apipassword . '</DATA>
-            <DATA type="email">' . $email . '</DATA>
-            </DATASET>'
+                            <SITE_ID>' . $this->siteid . '</SITE_ID>
+                            <MLID>' . $mlid . '</MLID>
+                            <DATA type="extra" id="password">' . $this->apipassword . '</DATA>
+                            <DATA type="email">' . $email . '</DATA>
+                            </DATASET>'
 			        );
 
 			        //submit data
@@ -455,11 +455,11 @@
 				        'type'     => 'record',
 				        'activity' => 'query-listdata',
 				        'input'    => '<DATASET>
-            <SITE_ID>' . $this->siteid . '</SITE_ID>
-            <MLID>' . $mlid . '</MLID>
-            <DATA type="extra" id="password">' . $this->apipassword . '</DATA>
-            <DATA type="extra" id="type">' . $type . '</DATA>
-            </DATASET>'
+                            <SITE_ID>' . $this->siteid . '</SITE_ID>
+                            <MLID>' . $mlid . '</MLID>
+                            <DATA type="extra" id="password">' . $this->apipassword . '</DATA>
+                            <DATA type="extra" id="type">' . $type . '</DATA>
+                            </DATASET>'
 			        );
 
 			        //submit data
@@ -531,10 +531,10 @@
 				        'type'     => 'record',
 				        'activity' => 'update',
 				        'input'    => '<DATASET>
-            <SITE_ID>' . $this->siteid . '</SITE_ID>
-            <MLID>' . $mlid . '</MLID>
-            <DATA type="extra" id="password">' . $this->apipassword . '</DATA>
-            <DATA type="email">' . $email . '</DATA>' . $attributesstring . $demographicsstring . '</DATASET>'
+                            <SITE_ID>' . $this->siteid . '</SITE_ID>
+                            <MLID>' . $mlid . '</MLID>
+                            <DATA type="extra" id="password">' . $this->apipassword . '</DATA>
+                            <DATA type="email">' . $email . '</DATA>' . $attributesstring . $demographicsstring . '</DATASET>'
 			        );
 
 			        //submit data
@@ -593,15 +593,15 @@
 				        'type'     => 'message',
 				        'activity' => 'add',
 				        'input'    => '<DATASET>
-            <SITE_ID>' . $this->siteid . '</SITE_ID>
-            <MLID>' . $mlid . '</MLID>
-            <DATA type="extra" id="password">' . $this->apipassword . '</DATA>
-            <DATA type="subject">' . $subject . '</DATA>
-            <DATA type="from-email">' . $fromEmail . '</DATA>
-            <DATA type="from-name">' . $fromName . '</DATA>
-            <DATA type="message-format">' . $messageFormat . '</DATA>
-            <DATA type="message-text">' . $messageText . '</DATA>' . $html . '</DATASET>
-            <DATA type="charset">UTF-8</DATA>'
+                            <SITE_ID>' . $this->siteid . '</SITE_ID>
+                            <MLID>' . $mlid . '</MLID>
+                            <DATA type="extra" id="password">' . $this->apipassword . '</DATA>
+                            <DATA type="subject">' . $subject . '</DATA>
+                            <DATA type="from-email">' . $fromEmail . '</DATA>
+                            <DATA type="from-name">' . $fromName . '</DATA>
+                            <DATA type="message-format">' . $messageFormat . '</DATA>
+                            <DATA type="message-text">' . $messageText . '</DATA>' . $html . '</DATASET>
+                            <DATA type="charset">UTF-8</DATA>'
 			        );
 
 			        //submit data
@@ -643,11 +643,11 @@
 				        'type'     => 'message',
 				        'activity' => 'copy',
 				        'input'    => '<DATASET>
-            <SITE_ID>' . $this->siteid . '</SITE_ID>
-            <MID>' . $mid . '</MID>
-            <MLID>' . $mlid . '</MLID>
-            <DATA type="extra" id="password">' . $this->apipassword . '</DATA>
-            </DATASET>'
+                            <SITE_ID>' . $this->siteid . '</SITE_ID>
+                            <MID>' . $mid . '</MID>
+                            <MLID>' . $mlid . '</MLID>
+                            <DATA type="extra" id="password">' . $this->apipassword . '</DATA>
+                            </DATASET>'
 			        );
 
 			        //submit data
@@ -690,12 +690,12 @@
 				        'type'     => 'message',
 				        'activity' => 'proof',
 				        'input'    => '<DATASET>
-            <SITE_ID>' . $this->siteid . '</SITE_ID>
-            <MID>' . $mid . '</MID>
-            <MLID>' . $mlid . '</MLID>
-            <DATA type="extra" id="password">' . $this->apipassword . '</DATA>
-            <DATA type="text">' . $text . '</DATA>
-            </DATASET>'
+                            <SITE_ID>' . $this->siteid . '</SITE_ID>
+                            <MID>' . $mid . '</MID>
+                            <MLID>' . $mlid . '</MLID>
+                            <DATA type="extra" id="password">' . $this->apipassword . '</DATA>
+                            <DATA type="text">' . $text . '</DATA>
+                            </DATASET>'
 			        );
 
 			        //submit data
@@ -739,11 +739,11 @@
 				        'type'     => 'message',
 				        'activity' => 'query-data',
 				        'input'    => '<DATASET>
-            <SITE_ID>' . $this->siteid . '</SITE_ID>
-            <MLID>' . $mlid . '</MLID>
-            <MID>' . $mid . '</MID>
-            <DATA type="extra" id="password">' . $this->apipassword . '</DATA>
-            </DATASET>'
+                            <SITE_ID>' . $this->siteid . '</SITE_ID>
+                            <MLID>' . $mlid . '</MLID>
+                            <MID>' . $mid . '</MID>
+                            <DATA type="extra" id="password">' . $this->apipassword . '</DATA>
+                            </DATASET>'
 			        );
 
 			        //submit data
@@ -789,10 +789,10 @@
 				        'type'     => 'message',
 				        'activity' => 'query-listdata',
 				        'input'    => '<DATASET>
-            <SITE_ID>' . $this->siteid . '</SITE_ID>
-            <MLID>' . $mlid . '</MLID>
-            <DATA type="extra" id="password">' . $this->apipassword . '</DATA>
-            </DATASET>'
+                            <SITE_ID>' . $this->siteid . '</SITE_ID>
+                            <MLID>' . $mlid . '</MLID>
+                            <DATA type="extra" id="password">' . $this->apipassword . '</DATA>
+                            </DATASET>'
 			        );
 
 			        //submit data
@@ -842,11 +842,11 @@
 				        'type'     => 'message',
 				        'activity' => 'query-stats',
 				        'input'    => '<DATASET>
-            <SITE_ID>' . $this->siteid . '</SITE_ID>
-            <MID>' . $mid . '</MID>
-            <MLID>' . $mlid . '</MLID>
-            <DATA type="extra" id="password">' . $this->apipassword . '</DATA>
-            <DATA type="' . strtoupper($action) . '"></DATA>' . $email . '</DATASET>'
+                            <SITE_ID>' . $this->siteid . '</SITE_ID>
+                            <MID>' . $mid . '</MID>
+                            <MLID>' . $mlid . '</MLID>
+                            <DATA type="extra" id="password">' . $this->apipassword . '</DATA>
+                            <DATA type="' . strtoupper($action) . '"></DATA>' . $email . '</DATASET>'
 			        );
 
 			        //submit data
@@ -910,11 +910,11 @@
 				        'type'     => 'message',
 				        'activity' => 'schedule',
 				        'input'    => '<DATASET>
-            <SITE_ID>' . $this->siteid . '</SITE_ID>
-            <MID>' . $mid . '</MID>
-            <MLID>' . $mlid . '</MLID>
-            <DATA type="extra" id="password">' . $this->apipassword . '</DATA>
-            <DATA type="action">' . $action . '</DATA>' . $timestampstring . $attributesstring . '</DATASET>'
+                            <SITE_ID>' . $this->siteid . '</SITE_ID>
+                            <MID>' . $mid . '</MID>
+                            <MLID>' . $mlid . '</MLID>
+                            <DATA type="extra" id="password">' . $this->apipassword . '</DATA>
+                            <DATA type="action">' . $action . '</DATA>' . $timestampstring . $attributesstring . '</DATASET>'
 			        );
 
 			        //submit data
@@ -969,15 +969,15 @@
 				        'type'     => 'message',
 				        'activity' => 'update',
 				        'input'    => '<DATASET>
-            <SITE_ID>' . $this->siteid . '</SITE_ID>
-            <MID>' . $mid . '</MID>
-            <MLID>' . $mlid . '</MLID>
-            <DATA type="extra" id="password">' . $this->apipassword . '</DATA>
-            <DATA type="subject">' . $subject . '</DATA>
-            <DATA type="from-email">' . $fromEmail . '</DATA>
-            <DATA type="from-name">' . $fromName . '</DATA>
-            <DATA type="message-format">' . $messageFormat . '</DATA>
-            <DATA type="message-text">' . $messageText . '</DATA>' . $html . '</DATASET>'
+                            <SITE_ID>' . $this->siteid . '</SITE_ID>
+                            <MID>' . $mid . '</MID>
+                            <MLID>' . $mlid . '</MLID>
+                            <DATA type="extra" id="password">' . $this->apipassword . '</DATA>
+                            <DATA type="subject">' . $subject . '</DATA>
+                            <DATA type="from-email">' . $fromEmail . '</DATA>
+                            <DATA type="from-name">' . $fromName . '</DATA>
+                            <DATA type="message-format">' . $messageFormat . '</DATA>
+                            <DATA type="message-text">' . $messageText . '</DATA>' . $html . '</DATASET>'
 			        );
 
 			        //submit data

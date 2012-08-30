@@ -521,7 +521,7 @@
                     //loop through demographics and add to query
                     $demographicsstring = '';
                     if (!empty($demographics)) {
-                        foreach ($attributes as $k => $v) {
+                        foreach ($demographics as $k => $v) {
                             $demographicsstring .= PHP_EOL . '<DATA type="demographic" id="' . trim($k) . '">' . trim($v) . '</DATA>' . PHP_EOL;
                         }
                     }

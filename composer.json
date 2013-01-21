@@ -1,5 +1,5 @@
 {
-    "name": "th3fallen/lyrisAPI",
+    "name": "th3fallen/lyris-api",
     "type": "library",
     "description": "A PHP LyrisHQ API library. Allows for all api interactions with LyrisHQ excluding segmentation",
     "keywords": ["lyris", "lyrishq", "email", "api"],

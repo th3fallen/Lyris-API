@@ -3,7 +3,7 @@
     "type": "library",
     "description": "A PHP LyrisHQ API library. Allows for all api interactions with LyrisHQ excluding segmentation",
     "keywords": ["lyris", "lyrishq", "email", "api"],
-    "homepage": "https://bitbucket.org/th3fallen/lyris-api",
+    "homepage": "https://github.com/th3fallen/Lyris-API",
     "license": "GPL",
     "authors": [
         {

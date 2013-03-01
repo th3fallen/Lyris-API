@@ -778,6 +778,13 @@
          * @throws \Exception
          * @return array
          */
+         
+        /*
+         * @author Henry Paradiz
+	     * @since Jan 7, 2013, 10:04:32 AM
+	     * @link http://akuj.in
+	     * @copyright 2013
+	     */
             public function messageQueryListData($mlid, $startdate = null, $enddate = null, $listapipass = null)
                 {
 
@@ -806,26 +813,48 @@
                     }
 
                     //create blank array to bind items to
-                    $returnarray = array();
-                    //clean up result and return array
-                    $returnarray['status'] = (string) $responseobj->TYPE;
-                    $returnarray['messageid'] = (string) $responseobj->DATA;
+                    $output = array();
+                    
+                    //parse through return data and bind to output array
+                   	foreach($responseobj->children() as $Record)
+                   	{
+                   		$temp = array();
+                   		foreach($Record->children() as $Data)
+                   		{
+	                   		$Attributes = $Data->attributes();
+	                   		
+	                   		$Type = (string) $Attributes['type'][0];
+	                   		
+	                   		$temp[$Type] = (string) $Data;
+	                   	}
+	                   	
+	                   	if(count($temp))
+	                   	{
+	                   		$output[] = $temp;
+	                   	}
+                   	}
 
-                    return $returnarray;
+                   	return $output;
                 }
 
         /**
          * Query Messages Stats
-         * @see Block 5.6
+         * @see Block 5.7
          * @param      $mid
          * @param      $mlid
          * @param      $action
          * @param null $params
          * @param null $listapipass
          * @throws \Exception
-         * @return XML
+         * @return array
          */
-            public function messageQueryStats($mid, $mlid, $action, $params = null, $listapipass = null)
+        /*
+         * @author Henry Paradiz
+	     * @since Jan 7, 2013, 10:04:32 AM
+	     * @link http://akuj.in
+	     * @copyright 2013
+	     */
+            public function messageQueryStats($mid, $mlid, $action = null, $params = null, $listapipass = null)
                 {
 
                     //check api password
@@ -859,14 +888,17 @@
                         throw new \Exception('Query message stats failed with message: ' . (string) $responseobj->DATA);
                     }
 
-                    //create blank array to bind items to
-                    $returnarray = array();
-                    //clean up result and return array
-                    $returnarray['status'] = (string) $responseobj->TYPE;
-                    $returnarray['messageid'] = (string) $responseobj->DATA;
-
-                    echo $querydata;
-                    return $response;
+                    $temp = array();
+                    foreach($responseobj->RECORD->children() as $Data)
+                    {
+	                    $Attributes = $Data->attributes();
+	                   		
+                   		$Type = (string) $Attributes['type'][0];
+                   		
+                   		$temp[$Type] = (string) $Data;
+                    }
+                    
+                    return $temp;
                 }
 
         /**

@@ -778,7 +778,7 @@
          * @throws \Exception
          * @return array
          */
-         
+
         /*
          * @author Henry Paradiz
 	     * @since Jan 7, 2013, 10:04:32 AM
@@ -814,7 +814,7 @@
 
                     //create blank array to bind items to
                     $output = array();
-                    
+
                     //parse through return data and bind to output array
                    	foreach($responseobj->children() as $Record)
                    	{
@@ -822,12 +822,12 @@
                    		foreach($Record->children() as $Data)
                    		{
 	                   		$Attributes = $Data->attributes();
-	                   		
+
 	                   		$Type = (string) $Attributes['type'][0];
-	                   		
+
 	                   		$temp[$Type] = (string) $Data;
 	                   	}
-	                   	
+
 	                   	if(count($temp))
 	                   	{
 	                   		$output[] = $temp;
@@ -892,12 +892,12 @@
                     foreach($responseobj->RECORD->children() as $Data)
                     {
 	                    $Attributes = $Data->attributes();
-	                   		
+
                    		$Type = (string) $Attributes['type'][0];
-                   		
+
                    		$temp[$Type] = (string) $Data;
                     }
-                    
+
                     return $temp;
                 }
 
@@ -1336,6 +1336,58 @@
                     return $returnarray;
                 }
 				
+
+				        /**
+         * Retrieve segment records
+         * @see Block 5.11
+         * @param        $mlid
+         * @param        $mid
+         * @param        $segment_id
+         * @param null   $listapipass
+         * @throws \Exception
+         * @return array
+         */
+            public function filterQueryData($mlid, $segment_id, $listapipass = null)
+                {
+
+                    //check api password
+                    $this->setApiPassword($listapipass);
+
+                    //build data for query
+                    $querydata = array(
+                        'type'     => 'filter',
+                        'activity' => 'query-data',
+                        'input'    => '<DATASET>
+				            <SITE_ID>' . $this->siteid . '</SITE_ID>
+				            <MLID>' . $mlid . '</MLID>
+				            <DATA type="extra" id="password">' . $this->apipassword . '</DATA>
+				            <DATA type="id">' . $segment_id . '</DATA>
+				            </DATASET>'
+                    );
+
+                    //submit data
+                    $response = $this->submit($querydata);
+                    //convert xml to array
+                    $responseobj = new \SimpleXMLElement($response);
+
+                    //check for errors
+                    if ((string) $responseobj->TYPE !== 'success') {
+                        throw new \Exception('Segment Management - Query-ListData failed with message: ' . (string) $responseobj->DATA);
+                    }
+
+                    //create blank array to bind items to
+                    $returnarray = array();
+                    //clean up result and return array
+                    $returnarray['status'] = (string) $responseobj->TYPE;
+                    $returnarray['message'] = (string) $responseobj->DATA;
+
+                    //create array of records, and add to $returnarray
+                    $record_array = array();
+
+                    $returnarray['records'] = $record_array;
+
+                    return $returnarray;
+                }
 
         /**
          * Sets provided api password for use

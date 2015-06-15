@@ -1206,12 +1206,12 @@
                         'type'     => 'filter',
                         'activity' => 'generate',
                         'input'    => '<DATASET>
-                    <SITE_ID>' . $this->siteid . '</SITE_ID>
-                    <MLID>' . $mlid . '</MLID>
-                    <DATA type="extra" id="password">' . $this->apipassword . '</DATA>
-                    <DATA type="id">' . $segment_id . '</DATA>
-              <DATA type="extra" id="email">' . $email . '</DATA>
-                    </DATASET>'
+                        <SITE_ID>' . $this->siteid . '</SITE_ID>
+                        <MLID>' . $mlid . '</MLID>
+                        <DATA type="extra" id="password">' . $this->apipassword . '</DATA>
+                        <DATA type="id">' . $segment_id . '</DATA>
+                        <DATA type="extra" id="email">' . $email . '</DATA>
+                        </DATASET>'
                     );
 
                     //submit data

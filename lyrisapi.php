@@ -49,7 +49,7 @@
         /**
          * LIST FUNCTIONS
          * @see Lyris API Docs Block 2.0
-         *  Omitted 2.5, 2.6
+         *  Omitted 2.2, 2.6 to 2.8
          */
 
         /**
@@ -112,7 +112,7 @@
 
         /**
          * Delete Mailing List
-         * @see Block 2.2
+         * @see Block 2.3
          * @param string $mlid
          * @param        $listapipass
          * @throws \Exception
@@ -150,62 +150,6 @@
                     //clean up result and return array
                     $returnarray['status'] = (string) $responseobj->TYPE;
                     $returnarray['message'] = (string) $responseobj->DATA;
-
-                    return $returnarray;
-                }
-
-        /**
-         * Query for all lists and relevent data
-         * @see Block 2.3
-         * @param string $listapipass
-         * @throws \Exception
-         * @return array
-         */
-            public function listQuery($listapipass = null)
-                {
-
-                    //check api password
-                    $this->setApiPassword($listapipass);
-
-                    //build query array
-                    $querydata = array(
-                        'type'     => 'list',
-                        'activity' => 'query-listdata',
-                        'input'    => '<DATASET>
-                            <SITE_ID>' . $this->siteid . '</SITE_ID>
-                            <DATA type="extra" id="password">' . $this->apipassword . '</DATA>
-                            </DATASET>'
-                    );
-
-                    //submit data
-                    $response = $this->submit($querydata);
-                    //create new SimpleXMLElement Instance
-                    $responseobj = new \SimpleXMLElement($response);
-
-                    //check for errors
-                    if ((string) $responseobj->TYPE !== 'success') {
-                        throw new \Exception('List Query failed with message: ' . (string) $responseobj->DATA);
-                    }
-
-                    //create blank array to bind items to
-                    $returnarray = array();
-                    //clean up result and return array
-                    $returnarray['status'] = (string) $responseobj->TYPE;
-                    $i = 0;
-                    foreach ($responseobj->RECORD as $value) {
-
-                        $returnarray[$i] = array();
-
-                        //add list id as array value
-                        $returnarray[$i]['mlid'] = (string) $value->DATA['id'];
-
-                        foreach ($value->DATA as $k => $v) {
-
-                            $returnarray[$i][(string) $v['type']] = (string) $v;
-
-                        }
-                        $i++;
-                    }
 
                     return $returnarray;
                 }
@@ -256,6 +200,62 @@
                     //clean up result and return array
                     $returnarray['status'] = (string) $responseobj->TYPE;
                     $returnarray['message'] = (string) $responseobj->DATA;
+
+                    return $returnarray;
+                }
+
+        /**
+         * Query for all lists and relevent data
+         * @see Block 2.5
+         * @param string $listapipass
+         * @throws \Exception
+         * @return array
+         */
+            public function listQuery($listapipass = null)
+                {
+
+                    //check api password
+                    $this->setApiPassword($listapipass);
+
+                    //build query array
+                    $querydata = array(
+                        'type'     => 'list',
+                        'activity' => 'query-listdata',
+                        'input'    => '<DATASET>
+                            <SITE_ID>' . $this->siteid . '</SITE_ID>
+                            <DATA type="extra" id="password">' . $this->apipassword . '</DATA>
+                            </DATASET>'
+                    );
+
+                    //submit data
+                    $response = $this->submit($querydata);
+                    //create new SimpleXMLElement Instance
+                    $responseobj = new \SimpleXMLElement($response);
+
+                    //check for errors
+                    if ((string) $responseobj->TYPE !== 'success') {
+                        throw new \Exception('List Query failed with message: ' . (string) $responseobj->DATA);
+                    }
+
+                    //create blank array to bind items to
+                    $returnarray = array();
+                    //clean up result and return array
+                    $returnarray['status'] = (string) $responseobj->TYPE;
+                    $i = 0;
+                    foreach ($responseobj->RECORD as $value) {
+
+                        $returnarray[$i] = array();
+
+                        //add list id as array value
+                        $returnarray[$i]['mlid'] = (string) $value->DATA['id'];
+
+                        foreach ($value->DATA as $k => $v) {
+
+                            $returnarray[$i][(string) $v['type']] = (string) $v;
+
+                        }
+                        $i++;
+                    }
 
                     return $returnarray;
                 }
@@ -426,18 +426,9 @@
                     return $returnarray;
                 }
 
-
-        /**
-         * Will query all memeber status
-         */
-            public function memberQueryStats()
-                {
-                    //TODO: Query Stats
-                }
-
         /**
          * Query list for member data
-         * @see Block 4.5
+         * @see Block 4.4
          * @param      $mlid
          * @param      $type
          * @param null $listapipass
@@ -491,6 +482,89 @@
 
                     return $returnarray;
 
+                }
+
+        /**
+         * Return statistical data for a single contact
+         * @see Block 4.5
+         * @param        $mlid
+         * @param string $email
+         * @param string $start_date (YYYY-MM-DD, optional)
+         * @param string $end_date (YYYY-MM-DD, optional)
+         * @param null   $listapipass
+         * @throws \Exception
+         * @return array
+         */
+
+         /*
+          * @author Ryan Field
+          * @since June 14, 2015, 5:13:32 PM
+          * @link https://github.com/kokuou
+          * @copyright 2015
+          */
+            public function memberQueryStats($mlid, $email, $start_date = null, $end_date = null, $listapipass = null)
+                {
+
+                    //check api password
+                    $this->setApiPassword($listapipass);
+
+                    //check if $start_date and $end_date are null
+                    $start_date = $start_date === null ? '' : $start_date;
+                    $end_date = $start_date === null ? '' : $end_date;
+
+                    //build data for query
+                    $querydata = array(
+                        'type'     => 'record',
+                        'activity' => 'query-stats',
+                        'input'    => '<DATASET>
+                            <SITE_ID>' . $this->siteid . '</SITE_ID>
+                            <MLID>' . $mlid . '</MLID>
+                            <DATA type="extra" id="password">' . $this->apipassword . '</DATA>
+                            <DATA type="email">' . $email . '</DATA>
+                            '.$start_date.$end_date.'
+                            </DATASET>'
+                    );
+
+                    //submit data
+                    $response = $this->submit($querydata);
+                    //convert xml to array
+                    $responseobj = new \SimpleXMLElement($response);
+
+                    //check for errors
+                    if ((string) $responseobj->TYPE !== 'success') {
+                        throw new \Exception('Contact Management - Query-Stats failed with message: ' . (string) $responseobj->DATA);
+                    }
+
+                    //create blank array to bind items to
+                    $returnarray = array();
+
+                    //create array to add records to
+                    $record_array = array();
+
+                    //iterate through each <RECORD>
+                    foreach($responseobj->RECORD as $record) {
+                        //iterate through each DATA child node and add information to array
+                        $temp_record = array();
+                        foreach($record->DATA as $data) {
+                            $attr = $data->attributes();
+                            $type = (string)$attr['type'];
+
+                            $item = $type;
+                            //if there is no id set, ignore
+                            if (isset($attr['id'])) {
+                                $item .= '-'.(string)$attr['id'];
+                            }
+                            $temp_record[$item] = (string) $data;
+                        }
+                        //add $temp_record to $record_array to return
+                        $record_array[] = $temp_record;
+                  }
+
+                    //clean up result and return array
+                    $returnarray['status'] = (string) $responseobj->TYPE;
+                    $returnarray['records'] = (array) $record_array;
+
+                    return $returnarray;
                 }
 
         /**
@@ -670,8 +744,73 @@
                 }
 
         /**
-         * Proof a created message
+         * Send quick proof of message to emails
          * @see Block 5.3
+         * @param        $mlid
+         * @param        $mid
+         * @param        $emails
+         * @param string $contentanalyzer
+         * @param string $inboxsnap
+         * @param string $blmon
+         * @param string $multi
+         * @param null   $listapipass
+         * @throws \Exception
+         * @return array
+         */
+            public function messageQuickTest($mlid, $mid, $emails, $contentanalyzer = 'off', $inboxsnap = 'off', $blmon = 'off', $multi = '1', $listapipass = null)
+                {
+
+                    //check api password
+                    $this->setApiPassword($listapipass);
+
+                    //explode emails array into csv format
+                    if (is_array($emails)) {
+                        $emails = implode(', ', $emails);
+                    }
+
+                    //build data for query
+                    $querydata = array(
+                        'type'     => 'message',
+                        'activity' => 'message-quicktest',
+                        'input'    => '<DATASET>
+                    <SITE_ID>' . $this->siteid . '</SITE_ID>
+                    <MID>' . $mid . '</MID>
+                    <MLID>' . $mlid . '</MLID>
+                    <DATA type="extra" id="password">' . $this->apipassword . '</DATA>
+                    <DATA type="extra" id="emails">' . $emails . '</DATA>
+                    <DATA type="extra" id="content_analyzer">' . $contentanalyzer . '</DATA>
+                    <DATA type="extra" id="inbox_snapshot">' . $inboxsnap . '</DATA>
+                    <DATA type="extra" id="back_list_monitor">' . $blmon . '</DATA>
+                    <DATA type="extra" id="multi">' . $multi . '</DATA>
+                    </DATASET>'
+                    );
+
+                    //submit data
+                    $response = $this->submit($querydata);
+                    //convert xml to array
+                    $responseobj = new \SimpleXMLElement($response);
+
+                    //check for errors
+                    if ((string) $responseobj->TYPE !== 'success') {
+                        throw new \Exception('Message quick test failed with message: ' . (string) $responseobj->DATA);
+                    }
+
+                    //create blank array to bind items to
+                    $returnarray = array();
+                    //clean up result and return array
+                    $returnarray['status'] = (string) $responseobj->TYPE;
+                    $returnarray['message'] = (string) $responseobj->DATA;
+                    $returnarray['htmlmid'] = (string) $responseobj->HTML_MID;
+                    $returnarray['textmid'] = (string) $responseobj->TEXT_MLID;
+                    $returnarray['contentanalyizer'] = (string) $responseobj->CONTENT_ANALYZER;
+                    $returnarray['inboxsnap'] = (string) $responseobj->INBOX_SNAPSHOT;
+
+                    return $returnarray;
+                }
+
+        /**
+         * Proof a created message
+         * @see Block 5.4
          * @param      $mlid
          * @param      $mid
          * @param      $text
@@ -722,6 +861,7 @@
 
         /**
          * Gathers all stats of single message
+         * @see Block 5.5
          * @param      $mlid
          * @param      $mid
          * @param null $listapipass
@@ -781,10 +921,10 @@
 
         /*
          * @author Henry Paradiz
-	     * @since Jan 7, 2013, 10:04:32 AM
-	     * @link http://akuj.in
-	     * @copyright 2013
-	     */
+         * @since Jan 7, 2013, 10:04:32 AM
+         * @link http://akuj.in
+         * @copyright 2013
+         */
             public function messageQueryListData($mlid, $startdate = null, $enddate = null, $listapipass = null)
                 {
 
@@ -816,30 +956,30 @@
                     $output = array();
 
                     //parse through return data and bind to output array
-                   	foreach($responseobj->children() as $Record)
-                   	{
-                   		$temp = array();
-                   		foreach($Record->children() as $Data)
-                   		{
-	                   		$Attributes = $Data->attributes();
+                     foreach($responseobj->children() as $Record)
+                     {
+                       $temp = array();
+                       foreach($Record->children() as $Data)
+                       {
+                         $Attributes = $Data->attributes();
 
-	                   		$Type = (string) $Attributes['type'][0];
+                         $Type = (string) $Attributes['type'][0];
 
-	                   		$temp[$Type] = (string) $Data;
-	                   	}
+                         $temp[$Type] = (string) $Data;
+                       }
 
-	                   	if(count($temp))
-	                   	{
-	                   		$output[] = $temp;
-	                   	}
-                   	}
+                       if(count($temp))
+                       {
+                         $output[] = $temp;
+                       }
+                     }
 
-                   	return $output;
+                     return $output;
                 }
 
         /**
          * Query Messages Stats
-         * @see Block 5.7
+         * @see Block 5.10
          * @param      $mid
          * @param      $mlid
          * @param      $action
@@ -848,12 +988,13 @@
          * @throws \Exception
          * @return array
          */
+
         /*
          * @author Henry Paradiz
-	     * @since Jan 7, 2013, 10:04:32 AM
-	     * @link http://akuj.in
-	     * @copyright 2013
-	     */
+         * @since Jan 7, 2013, 10:04:32 AM
+         * @link http://akuj.in
+         * @copyright 2013
+         */
             public function messageQueryStats($mid, $mlid, $action = null, $params = null, $listapipass = null)
                 {
 
@@ -891,11 +1032,11 @@
                     $temp = array();
                     foreach($responseobj->RECORD->children() as $Data)
                     {
-	                    $Attributes = $Data->attributes();
+                      $Attributes = $Data->attributes();
 
-                   		$Type = (string) $Attributes['type'][0];
+                       $Type = (string) $Attributes['type'][0];
 
-                   		$temp[$Type] = (string) $Data;
+                       $temp[$Type] = (string) $Data;
                     }
 
                     return $temp;
@@ -903,7 +1044,7 @@
 
         /**
          * Schedule Message
-         * @see Block 5.8
+         * @see Block 5.12
          * @param       $mlid
          * @param       $mid
          * @param       $action
@@ -970,7 +1111,7 @@
 
         /**
          * Edit An already created message
-         * @see Block 5.9
+         * @see Block 5.14
          * @param      $mlid
          * @param      $mid
          * @param      $fromEmail
@@ -1032,78 +1173,28 @@
                 }
 
         /**
-         * Send quick proof of message to emails
-         * @see Block 5.10
-         * @param        $mlid
-         * @param        $mid
-         * @param        $emails
-         * @param string $contentanalyzer
-         * @param string $inboxsnap
-         * @param string $blmon
-         * @param string $multi
-         * @param null   $listapipass
-         * @throws \Exception
-         * @return array
+         * SEGMEMT FUNCTIONS
+         * @see Lyris API Docs Block 6.0
          */
-            public function messageQuickTest($mlid, $mid, $emails, $contentanalyzer = 'off', $inboxsnap = 'off', $blmon = 'off', $multi = '1', $listapipass = null)
-                {
 
-                    //check api password
-                    $this->setApiPassword($listapipass);
-
-                    //explode emails array into csv format
-                    if (is_array($emails)) {
-                        $emails = implode(', ', $emails);
-                    }
-
-                    //build data for query
-                    $querydata = array(
-                        'type'     => 'message',
-                        'activity' => 'message-quicktest',
-                        'input'    => '<DATASET>
-				            <SITE_ID>' . $this->siteid . '</SITE_ID>
-				            <MID>' . $mid . '</MID>
-				            <MLID>' . $mlid . '</MLID>
-				            <DATA type="extra" id="password">' . $this->apipassword . '</DATA>
-				            <DATA type="extra" id="emails">' . $emails . '</DATA>
-				            <DATA type="extra" id="content_analyzer">' . $contentanalyzer . '</DATA>
-				            <DATA type="extra" id="inbox_snapshot">' . $inboxsnap . '</DATA>
-				            <DATA type="extra" id="back_list_monitor">' . $blmon . '</DATA>
-				            <DATA type="extra" id="multi">' . $multi . '</DATA>
-				            </DATASET>'
-                    );
-
-                    //submit data
-                    $response = $this->submit($querydata);
-                    //convert xml to array
-                    $responseobj = new \SimpleXMLElement($response);
-
-                    //check for errors
-                    if ((string) $responseobj->TYPE !== 'success') {
-                        throw new \Exception('Message quick test failed with message: ' . (string) $responseobj->DATA);
-                    }
-
-                    //create blank array to bind items to
-                    $returnarray = array();
-                    //clean up result and return array
-                    $returnarray['status'] = (string) $responseobj->TYPE;
-                    $returnarray['message'] = (string) $responseobj->DATA;
-                    $returnarray['htmlmid'] = (string) $responseobj->HTML_MID;
-                    $returnarray['textmid'] = (string) $responseobj->TEXT_MLID;
-                    $returnarray['contentanalyizer'] = (string) $responseobj->CONTENT_ANALYZER;
-                    $returnarray['inboxsnap'] = (string) $responseobj->INBOX_SNAPSHOT;
-
-                    return $returnarray;
-                }
-		/**
+        /**
          * Regenerate segment
+         * @see Block 6.3
          * @param        $mlid
-         * @param        $segment_id
-		 * @param        $email
+         * @param string $segment_id
+         * @param string $email
          * @param null   $listapipass
          * @throws \Exception
          * @return array
          */
+
+         /*
+          * @author Ryan Field
+          * @since June 14, 2015, 5:13:32 PM
+          * @link https://github.com/kokuou
+          * @copyright 2015
+          */
+
             public function filterGenerate($mlid, $segment_id, $email, $listapipass = null)
                 {
 
@@ -1115,44 +1206,53 @@
                         'type'     => 'filter',
                         'activity' => 'generate',
                         'input'    => '<DATASET>
-				            <SITE_ID>' . $this->siteid . '</SITE_ID>
-				            <MLID>' . $mlid . '</MLID>
-				            <DATA type="extra" id="password">' . $this->apipassword . '</DATA>
-				            <DATA type="id">' . $segment_id . '</DATA>
-							<DATA type="extra" id="email">' . $email . '</DATA>
-				            </DATASET>'
+                    <SITE_ID>' . $this->siteid . '</SITE_ID>
+                    <MLID>' . $mlid . '</MLID>
+                    <DATA type="extra" id="password">' . $this->apipassword . '</DATA>
+                    <DATA type="id">' . $segment_id . '</DATA>
+              <DATA type="extra" id="email">' . $email . '</DATA>
+                    </DATASET>'
                     );
 
                     //submit data
                     $response = $this->submit($querydata);
                     //convert xml to array
                     $responseobj = new \SimpleXMLElement($response);
-					
-					
+
+
                     //check for errors
-					$response_msg = (string) $responseobj->DATA;
+          $response_msg = (string) $responseobj->DATA;
                     if (strpos($response_msg, 'Your segments generations has started.') === false) {
                         throw new \Exception('Segment Management - Generate failed with message: ' . (string) $responseobj->DATA);
                     }
-					
+
 
                     //create blank array to bind items to
-                    $returnarray = array();				
-					
+                    $returnarray = array();
+
                     //clean up result and return array
                     $returnarray['status'] = (string) $responseobj->DATA;
 
                     return $returnarray;
                 }
-								
-		/**
-         * Retrieve segment records
+
+        /**
+         * Retrieve all records for a single segment
+         * @see Block 6.4
          * @param        $mlid
          * @param        $segment_id
          * @param null   $listapipass
          * @throws \Exception
          * @return array
          */
+
+         /*
+          * @author Ryan Field
+          * @since June 14, 2015, 5:13:32 PM
+          * @link https://github.com/kokuou
+          * @copyright 2015
+          */
+
             public function filterQueryData($mlid, $segment_id, $listapipass = null)
                 {
 
@@ -1164,11 +1264,11 @@
                         'type'     => 'filter',
                         'activity' => 'query-data',
                         'input'    => '<DATASET>
-				            <SITE_ID>' . $this->siteid . '</SITE_ID>
-				            <MLID>' . $mlid . '</MLID>
-				            <DATA type="extra" id="password">' . $this->apipassword . '</DATA>
-				            <DATA type="id">' . $segment_id . '</DATA>
-				            </DATASET>'
+                        <SITE_ID>' . $this->siteid . '</SITE_ID>
+                        <MLID>' . $mlid . '</MLID>
+                        <DATA type="extra" id="password">' . $this->apipassword . '</DATA>
+                        <DATA type="id">' . $segment_id . '</DATA>
+                        </DATASET>'
                     );
 
                     //submit data
@@ -1183,137 +1283,80 @@
 
                     //create blank array to bind items to
                     $returnarray = array();
-					
-					//create array to add records to
-					$record_array = array();
-					
-					//iterate through each RECORD
-					foreach($responseobj->RECORD as $record) {
-						//iterate through each DATA child node and add information to array
-						$temp_record = array();
-						foreach($record->DATA as $data) {
-							$attr = $data->attributes();
-							$type = (string)$attr['type'];
-							
-							$item = $type;
-							//if there is no id set, ignore
-							if (isset($attr['id'])) {
-								$item .= '-'.(string)$attr['id'];
-							}
-							$temp_record[$item] = (string) $data;
-						}
-						$record_array[] = $temp_record;
-						
-					}
-					
+
+                    //create array to add records to
+                    $record_array = array();
+
+                    //iterate through each <RECORD>
+                    foreach($responseobj->RECORD as $record) {
+
+                        //iterate through each DATA child node and add information to array
+                        $temp_record = array();
+
+                        foreach($record->DATA as $data) {
+                            $attr = $data->attributes();
+                            $type = (string)$attr['type'];
+
+                            $item = $type;
+                            //if there is no id set, ignore
+                            if (isset($attr['id'])) {
+                                $item .= '-'.(string)$attr['id'];
+                            }
+
+                            $temp_record[$item] = (string) $data;
+                        }
+                        //add $temp_record to $record_array
+                        $record_array[] = $temp_record;
+
+                  }
+
                     //clean up result and return array
                     $returnarray['status'] = (string) $responseobj->TYPE;
-					$returnarray['records'] = (array) $record_array;
+                    $returnarray['records'] = (array) $record_array;
 
                     return $returnarray;
-                }
-				
-		/**
-         * Retrieve statistical data for a contact
-         * @param        $mlid
-         * @param        $email
-		 * @param opt    $start_date (YYYY-MM-DD)
-		 * @param opt    $end_date (YYYY-MM-DD)
-         * @param null   $listapipass
-         * @throws \Exception
-         * @return array
+              }
+
+        /**
+         * TRIGGER FUNCTIONS
+         * @see Lyris API Docs Block 8.0
          */
-            public function recordQueryStats($mlid, $email, $start_date = null, $end_date = null, $listapipass = null)
-                {
 
-                    //check api password
-                    $this->setApiPassword($listapipass);
-					
-					//check if $start_date and $end_date are null
-					$start_date = $start_date === null ? '' : $start_date;
-					$end_date = $start_date === null ? '' : $end_date;
-					
-                    //build data for query
-                    $querydata = array(
-                        'type'     => 'record',
-                        'activity' => 'query-stats',
-                        'input'    => '<DATASET>
-				            <SITE_ID>' . $this->siteid . '</SITE_ID>
-				            <MLID>' . $mlid . '</MLID>
-				            <DATA type="extra" id="password">' . $this->apipassword . '</DATA>
-				            <DATA type="email">' . $email . '</DATA>
-							'.$start_date.$end_date.'
-				            </DATASET>'
-                    );
-
-                    //submit data
-                    $response = $this->submit($querydata);
-                    //convert xml to array
-                    $responseobj = new \SimpleXMLElement($response);
-
-                    //check for errors
-                    if ((string) $responseobj->TYPE !== 'success') {
-                        throw new \Exception('Contact Management - Query-Stats failed with message: ' . (string) $responseobj->DATA);
-                    }
-
-                    //create blank array to bind items to
-                    $returnarray = array();
-					
-					//create array to add records to
-					$record_array = array();
-					
-					//iterate through each RECORD
-					foreach($responseobj->RECORD as $record) {
-						//iterate through each DATA child node and add information to array
-						$temp_record = array();
-						foreach($record->DATA as $data) {
-							$attr = $data->attributes();
-							$type = (string)$attr['type'];
-							
-							$item = $type;
-							//if there is no id set, ignore
-							if (isset($attr['id'])) {
-								$item .= '-'.(string)$attr['id'];
-							}
-							$temp_record[$item] = (string) $data;
-						}
-						$record_array[] = $temp_record;
-						
-					}
-					
-                    //clean up result and return array
-                    $returnarray['status'] = (string) $responseobj->TYPE;
-					$returnarray['records'] = (array) $record_array;
-
-                    return $returnarray;
-                }
-
-		/**
+        /**
          * Fire a trigger that has already been set up
+         * @see Block 8.4
          * @param        $mlid
          * @param        $trigger_id
-		 * @param opt    $recipients
+         * @param opt    $recipients
          * @param null   $listapipass
          * @throws \Exception
          * @return array
          */
+
+         /*
+          * @author Ryan Field
+          * @since June 14, 2015, 5:13:32 PM
+          * @link https://github.com/kokuou
+          * @copyright 2015
+          */
+
             public function triggersFireTrigger($mlid, $trigger_id, $recipients, $listapipass = null)
                 {
 
                     //check api password
                     $this->setApiPassword($listapipass);
-					
+
                     //build data for query
                     $querydata = array(
                         'type'     => 'triggers',
                         'activity' => 'fire-trigger',
                         'input'    => '<DATASET>
-				            <SITE_ID>' . $this->siteid . '</SITE_ID>
-				            <MLID>' . $mlid . '</MLID>
-				            <DATA type="extra" id="password">' . $this->apipassword . '</DATA>
-							<DATA type="extra" id="trigger_id">' . $trigger_id . '</DATA>
-				            <DATA type="extra" id="recipients">' . $recipients . '</DATA>
-				            </DATASET>'
+                        <SITE_ID>' . $this->siteid . '</SITE_ID>
+                        <MLID>' . $mlid . '</MLID>
+                        <DATA type="extra" id="password">' . $this->apipassword . '</DATA>
+                        <DATA type="extra" id="trigger_id">' . $trigger_id . '</DATA>
+                        <DATA type="extra" id="recipients">' . $recipients . '</DATA>
+                        </DATASET>'
                     );
 
                     //submit data
@@ -1328,63 +1371,10 @@
 
                     //create blank array to bind items to
                     $returnarray = array();
-	
-					
+
+
                     //clean up result and return array
                     $returnarray['status'] = (string) $responseobj->TYPE;
-
-                    return $returnarray;
-                }
-				
-
-				        /**
-         * Retrieve segment records
-         * @see Block 5.11
-         * @param        $mlid
-         * @param        $mid
-         * @param        $segment_id
-         * @param null   $listapipass
-         * @throws \Exception
-         * @return array
-         */
-            public function filterQueryData($mlid, $segment_id, $listapipass = null)
-                {
-
-                    //check api password
-                    $this->setApiPassword($listapipass);
-
-                    //build data for query
-                    $querydata = array(
-                        'type'     => 'filter',
-                        'activity' => 'query-data',
-                        'input'    => '<DATASET>
-				            <SITE_ID>' . $this->siteid . '</SITE_ID>
-				            <MLID>' . $mlid . '</MLID>
-				            <DATA type="extra" id="password">' . $this->apipassword . '</DATA>
-				            <DATA type="id">' . $segment_id . '</DATA>
-				            </DATASET>'
-                    );
-
-                    //submit data
-                    $response = $this->submit($querydata);
-                    //convert xml to array
-                    $responseobj = new \SimpleXMLElement($response);
-
-                    //check for errors
-                    if ((string) $responseobj->TYPE !== 'success') {
-                        throw new \Exception('Segment Management - Query-ListData failed with message: ' . (string) $responseobj->DATA);
-                    }
-
-                    //create blank array to bind items to
-                    $returnarray = array();
-                    //clean up result and return array
-                    $returnarray['status'] = (string) $responseobj->TYPE;
-                    $returnarray['message'] = (string) $responseobj->DATA;
-
-                    //create array of records, and add to $returnarray
-                    $record_array = array();
-
-                    $returnarray['records'] = $record_array;
 
                     return $returnarray;
                 }

@@ -1,3 +1,5 @@
+### No longer maintained
+
 Lyris-API
 =========
 Author: Clark Tomlinson
